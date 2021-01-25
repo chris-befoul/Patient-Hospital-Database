@@ -24,5 +24,39 @@
             <li class="menuItem"><a href="hospitalsandpayors.handlebars">Hospitals and Payors Relationship</a></li>
           </ul>
         <script src="payors.js" async defer></script>
+    <form name="AddPayor">
+        <fieldset>
+            <legend>Add Payor</legend>
+            <br>
+            <label>Company Name:
+                <input type="text" name="company" size="30">
+            </label>
+            <br>
+            <label>City:
+                <input type="text" name="PayCity" size="30">
+            </label>
+            <br>
+            <label>State:
+                <input type="text" name="PayState" size="30">
+            </label>
+            <br>
+            <label>Zip Code:
+                <input type="number" name="PayZip" size="30">
+            </label>
+            <input type="submit" name="AddPay" value="Add"/>
+        </fieldset>
+    </form>
+    <br>
+    <form name="SearchPayor">
+        <fieldset>
+            <legend>Search Payor</legend>
+            <br>
+            <label>Company Name:
+                <input type="text" name="SearchCompany" size="30">
+            </label>
+            <br>
+            <input type="submit" name="SearchPay" value="Search"/>
+        </fieldset>
+    </form>
     </body>
 </html>

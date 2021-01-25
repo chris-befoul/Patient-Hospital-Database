@@ -24,5 +24,80 @@
             <li class="menuItem"><a href="hospitalsandpayors.handlebars">Hospitals and Payors Relationship</a></li>
           </ul>
         <script src="patients.js" async defer></script>
+        <form name="Add">
+            <fieldset>
+                <legend>Add Patient</legend>
+                <br>
+                <label>Last Name:
+                    <input type="text" name="AddLast" size="30" required>
+                </label>
+                <br>
+                <label>First Name:
+                <input type="text" name="AddFirst" size="30" required>
+                </label>
+                <br>
+                <label>Date of Birth:
+                    <input type="date" name="AddDob" size="30" required>
+                </label>
+                <br>
+                <label>Street Address:
+                    <input type="text" name="AddStreet" size="30" required>
+                </label>
+                <br>
+                <label>City:
+                    <input type="text" name="AddCity" size="30" required>
+                </label>
+                <br>
+                <label>State:
+                    <input type="text" name="AddState" size="30" required>
+                </label>
+                <br>
+                <label>Zip:
+                    <input type="number" name="AddZip" size="30" required>
+                </label>
+                <br>
+                <label>Gender:
+                    <br>
+                    <select name="AddGender">
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                    </select>
+                </label>
+                <br>
+                <label>Primary Diagnosis:
+                    <input type="text" name="AddDiagnosis" size="30" required>
+                </label>
+                <br>
+                <label>Physician Identification Number:
+                    <input type="number" name="AddPhysID" size="30" required>
+                </label>
+                <br>
+                <label>Payor ID:
+                    <input type="number" name="AddPayorID" size="30" required>
+                </label>
+                <br>
+                <input type="submit" name="AddPat" value="Add"/>
+            </fieldset>
+        </form>
+        <br>
+        <form name="Search">
+            <fieldset>
+                <legend>Patient Search</legend>
+                <br>
+                <label>Last Name:
+                    <input type="text" name="SearchLast" size="30" required>
+                </label>
+                <br>
+                <label>First Name:
+                    <input type="text" name="SearchFirst" size="30" required>
+                </label>
+                <br>
+                <label>Date of Birth:
+                    <input type="date" name="SearchDob" size="30" required>
+                </label>
+                <br>
+                <input type="submit" name="PatSearch" value="Search"/>
+            </fieldset>
+        </form>
     </body>
 </html>
