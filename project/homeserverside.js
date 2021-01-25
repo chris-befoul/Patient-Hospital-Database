@@ -17,16 +17,14 @@ app.use(express.static('public'));
 app.set('port', process.argv[2]);
 
 app.use(function(req,res){
-  res.type('text/plain');
   res.status(404);
-  res.send('404 - Not Found');
+  res.render('404');
 });
 
 app.use(function(err, req, res, next){
   console.error(err.stack);
-  res.type('plain/text');
   res.status(500);
-  res.send('500 - Server Error');
+  res.render('500');
 });
 
 app.listen(app.get('port'), function(){
