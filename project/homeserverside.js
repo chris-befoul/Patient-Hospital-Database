@@ -16,6 +16,10 @@ app.use(bodyParser.json());
 app.use(express.static('public'));
 app.set('port', process.argv[2]);
 
+app.get('/', function(req, res, next){
+  res.render('home');
+});
+
 app.use(function(req,res){
   res.status(404);
   res.render('404');
