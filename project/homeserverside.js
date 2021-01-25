@@ -14,10 +14,18 @@ var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.use(express.static('public'));
-app.set('port', process.argv[2]);
+app.set('port', 8364);
 
 app.get('/', function(req, res, next){
   res.render('home');
+});
+
+app.get('/patients', function(req, res, next){
+  res.render('patients');
+});
+
+app.get('/payors', function(req, res, next){
+  res.render('payors');
 });
 
 app.use(function(req,res){
