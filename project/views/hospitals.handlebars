@@ -69,5 +69,33 @@
                 <input type="submit" name="HospitalSearch" value="Search"/>
             </fieldset>
         </form>
+        <br>
+        <table id="mainHospitalTable" style="border:solid black">
+            <caption>Search Results</caption>
+            <thead>
+                <tr style="border:solid black">
+                    <th style="border:solid black">Name</th>
+                    <th style="border:solid black">City</th>
+                    <th style="border:solid black">State</th>
+                    <th style="border:solid black">Zip</th>
+                </tr>
+            </thead>
+                <tbody style="border:solid black">
+                <!--Use Handlebar templates to fill in cells with appropriate data from databse.-->
+                {{#each entries}}
+                <tr id="hospitalTable" style="border:solid black">
+                    <!--Keep id values hidden-->
+                    <td class="entryId" id="entryId" hidden style="border:solid black">{{this.id}}</td>
+                    <td id="entryName" style="border:solid black">{{this.name}}</td>
+                    <td id="entryCity" style="border:solid black">{{this.city}}</td>
+                    <td id="entryState" style="border:solid black">{{this.state}}</td>
+                    <td id="entryZip" style="border:solid black">{{this.zip}}</td>
+                    <td><button class="deleteRow" type="button" value={{this.id}}>Delete</button></td>
+                    <td><button class="editRow" type="button" value={{this.id}}>Edit</button></td>
+                    <td><button class="updateRow" type="button" value={{this.id}}>Update</button></td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
     </body>
 </html>
