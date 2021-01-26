@@ -7,7 +7,7 @@
         <title>Patient Information Portal for Healthcare Administration</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="hospitals.css">
+        <link rel="stylesheet" href="hospitalss.css">
     </head>
     <body>
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -16,13 +16,58 @@
         <h1 class="titlehead">Hospitals</h1>
         <ul class="menu">
             <!--Horizontal menu-->
-            <li class="menuItem"><a href="home.handlebars">Home</a></li>
-            <li class="menuItem"><a href="patients.handlebars">Patients</a></li>
+            <li class="menuItem"><a href="/">Home</a></li>
+            <li class="menuItem"><a href="/patients">Patients</a></li>
             <li class="menuItem"><a href="physicians.handlebars">Physicians</a></li>
             <li class="menuItem"><a href="hospitals.handlebars">Hospitals</a></li>
-            <li class="menuItem"><a href="payors.handlebars">Payors</a></li>
+            <li class="menuItem"><a href="/payors">Payors</a></li>
             <li class="menuItem"><a href="hospitalsandpayors.handlebars">Hospitals and Payors Relationship</a></li>
           </ul>
         <script src="hospitals.js" async defer></script>
+        <form name="Add">
+            <fieldset>
+                <legend>Add Hospital</legend>
+                <br>
+                <label>Hospital Name:
+                    <input type="text" name="AddName" size="30" required>
+                </label>
+                <br>
+                <label>City:
+                <input type="text" name="AddCity" size="30" required>
+                </label>
+                <br>
+                <label>State:
+                    <input type="text" name="AddState" size="30" required>
+                </label>
+                <br>
+                <label>Zip:
+                    <input type="number" name="AddZip" size="30" required>
+                </label>
+            </fieldset>
+        </form>
+        <br>
+        <form name="Search">
+            <fieldset>
+                <legend>Hospital Search</legend>
+                <br>
+                <label>Hospital Name:
+                    <input type="text" name="SearchName" size="30" required>
+                </label>
+                <br>
+                <label>City:
+                    <input type="text" name="SearchCity" size="30" required>
+                </label>
+                <br>
+                <label>State:
+                    <input type="text" name="SearchState" size="30" required>
+                </label>
+                <br>
+                <label>Zip:
+                    <input type="number" name="SearchZip" size="30" required>
+                </label>
+                <br>
+                <input type="submit" name="HospitalSearch" value="Search"/>
+            </fieldset>
+        </form>
     </body>
 </html>
