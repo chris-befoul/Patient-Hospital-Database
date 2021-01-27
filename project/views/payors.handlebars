@@ -58,5 +58,26 @@
             <input type="submit" name="SearchPay" value="Search"/>
         </fieldset>
     </form>
+        <table id="PayorsTable" type="text/x-handlebars-template">
+            <caption>Search Results</caption>
+            <thead>
+            <tr>
+                <th style="border:solid black">Company</th>
+                <th style="border:solid black">City</th>
+                <th style="border:solid black">State</th>
+                <th style="border:solid black">Zip Code</th>
+            </tr>
+            </thead>
+            <!--Utilizing handlebars to fill in search data into table below, mock data used to visualize-->
+                <tr>
+                    <td class="payorID" id="payorID" hidden style="border:solid black">Test</td>
+                    <td id="fname" style="border:solid black">Blue Cross Blue Shield</td>
+                    <td id="city" style="border:solid black">Chicago</td>
+                    <td id="state" style="border:solid black">Illinois</td>
+                    <td id="zip" style="border:solid black">60601</td>
+                    <td><button class="deleteRow" type="button"></button>Delete</button></td>
+                    <td><button class="editRow" type="button"></button>Edit</button></td>
+                </tr>
+        </table>
     </body>
 </html>

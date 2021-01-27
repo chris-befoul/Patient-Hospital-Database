@@ -99,5 +99,38 @@
                 <input type="submit" name="PatSearch" value="Search"/>
             </fieldset>
         </form>
+        <br>
+        <br>
+        <table id="PatientsTable" type="text/x-handlebars-template">
+            <caption>Search Results</caption>
+            <thead>
+                <tr>
+                    <th style="border:solid black">First Name</th>
+                    <th style="border:solid black">Last Name</th>
+                    <th style="border:solid black">DOB</th>
+                    <th style="border:solid black">Address</th>
+                    <th style="border:solid black">City</th>
+                    <th style="border:solid black">State</th>
+                    <th style="border:solid black">Zip Code</th>
+                    <th style="border:solid black">Gender</th>
+                    <th style="border:solid black">Primary Diagnosis</th>
+                </tr>
+            </thead>
+            <!--Utilizing handlebars to fill in search data into table below, mock data used to visualize-->
+                <tr>
+                    <td class="patientID" id="patientID" hidden style="border:solid black">Test</td>
+                    <td id="fname" style="border:solid black">John</td>
+                    <td id="lname" style="border:solid black">Doe</td>
+                    <td id="dob" style="border:solid black">02/14/1967</td>
+                    <td id="address" style="border:solid black">9160 Alligator Loop</td>
+                    <td id="city" style="border:solid black">Apex</td>
+                    <td id="state" style="border:solid black">North Carolina</td>
+                    <td id="zip" style="border:solid black">27502</td>
+                    <td id="gender" style="border:solid black">Male</td>
+                    <td id="primDiagnosis" style="border:solid black">Coronavirus</td>
+                    <td><button class="deleteRow" type="button"></button>Delete</button></td>
+                    <td><button class="editRow" type="button"></button>Edit</button></td>
+                </tr>
+        </table>
     </body>
 </html>
