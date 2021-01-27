@@ -82,7 +82,7 @@
             </thead>
                 <tbody style="border:solid black">
                 <!--Use Handlebar templates to fill in cells with appropriate data from databse.-->
-                {{#each entries}}
+                <!--{{#each entries}}-->
                 <tr id="hospitalTable" style="border:solid black">
                     <!--Keep id values hidden-->
                     <td class="entryId" id="entryId" hidden style="border:solid black">{{this.id}}</td>
@@ -94,7 +94,7 @@
                     <td><button class="editRow" type="button" value={{this.id}}>Edit</button></td>
                     <td><button class="updateRow" type="button" value={{this.id}}>Update</button></td>
                 </tr>
-                {{/each}}
+                <!--{{/each}}-->
             </tbody>
         </table>
     </body>
