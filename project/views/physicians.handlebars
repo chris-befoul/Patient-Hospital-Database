@@ -22,7 +22,66 @@
             <li class="menuItem"><a href="/hospitals">Hospitals</a></li>
             <li class="menuItem"><a href="/payors">Payors</a></li>
             <li class="menuItem"><a href="/hospitalsandpayors">Hospitals and Payors Relationship</a></li>
-          </ul>
+        </ul>
+        <form name="Add">
+            <fieldset>
+                <legend>Add Physician</legend>
+                <br>
+                <label>Last Name:
+                    <input type="text" name="AddLast" size="30" required>
+                </label>
+                <br>
+                <label>First Name:
+                <input type="text" name="AddFirst" size="30" required>
+                </label>
+                <br>
+                <label>Specialty:
+                    <input type="text" name="AddSpecialty" size="30" required>
+                </label>
+            </fieldset>
+        </form>
+        <br>
+        <form name="Search">
+            <fieldset>
+                <legend>Physician Search</legend>
+                <br>
+                <label>Last Name:
+                    <input type="text" name="SearchLast" size="30" required>
+                </label>
+                <br>
+                <label>First Name:
+                    <input type="text" name="SearchFirst" size="30" required>
+                </label>
+                <br>
+                <label>Specialty:
+                    <input type="text" name="SearchSpecialty" size="30" required>
+                </label>
+                <br>
+                <input type="submit" name="PhysicianSearch" value="Search"/>
+            </fieldset>
+        </form>
+        <br>
+        <table id="mainPhysicianTable" style="border:solid black">
+            <caption>Search Results</caption>
+            <thead>
+                <tr style="border:solid black">
+                    <th style="border:solid black">Name</th>
+                    <th style="border:solid black">Specialty</th>
+                </tr>
+            </thead>
+                <tbody style="border:solid black">
+                <!--Use Handlebar templates to fill in cells with appropriate data from databse.-->
+                <tr id="physicianTable" style="border:solid black">
+                    <!--Keep id values hidden-->
+                    <td class="entryId" id="entryId" hidden style="border:solid black">Test</td>
+                    <td id="entryName" style="border:solid black">Test Physician</td>
+                    <td id="entrySpecialty" style="border:solid black">Doctor</td>
+                    <td><button class="deleteRow" type="button"></button>Delete</button></td>
+                    <td><button class="editRow" type="button"></button>Edit</button></td>
+                    <td><button class="updateRow" type="button"></button>Update</button></td>
+                </tr>
+            </tbody>
+        </table>
         <script src="physicians.js" async defer></script>
     </body>
 </html>
