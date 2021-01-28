@@ -16,13 +16,84 @@
         <h1 class="titlehead">Hospitals</h1>
         <ul class="menu">
             <!--Horizontal menu-->
-            <li class="menuItem"><a href="home.handlebars">Home</a></li>
-            <li class="menuItem"><a href="patients.handlebars">Patients</a></li>
-            <li class="menuItem"><a href="physicians.handlebars">Physicians</a></li>
-            <li class="menuItem"><a href="hospitals.handlebars">Hospitals</a></li>
-            <li class="menuItem"><a href="payors.handlebars">Payors</a></li>
-            <li class="menuItem"><a href="hospitalsandpayors.handlebars">Hospitals and Payors Relationship</a></li>
+            <li class="menuItem"><a href="/">Home</a></li>
+            <li class="menuItem"><a href="/patients">Patients</a></li>
+            <li class="menuItem"><a href="/physicians">Physicians</a></li>
+            <li class="menuItem"><a href="/hospitals">Hospitals</a></li>
+            <li class="menuItem"><a href="/payors">Payors</a></li>
+            <li class="menuItem"><a href="/hospitalsandpayors">Hospitals and Payors Relationship</a></li>
           </ul>
+        <form name="Add">
+            <fieldset>
+                <legend>Add Hospital</legend>
+                <br>
+                <label>Hospital Name:
+                    <input type="text" name="AddName" size="30" required>
+                </label>
+                <br>
+                <label>City:
+                <input type="text" name="AddCity" size="30" required>
+                </label>
+                <br>
+                <label>State:
+                    <input type="text" name="AddState" size="30" required>
+                </label>
+                <br>
+                <label>Zip:
+                    <input type="number" name="AddZip" size="30" required>
+                </label>
+            </fieldset>
+        </form>
+        <br>
+        <form name="Search">
+            <fieldset>
+                <legend>Hospital Search</legend>
+                <br>
+                <label>Hospital Name:
+                    <input type="text" name="SearchName" size="30" required>
+                </label>
+                <br>
+                <label>City:
+                    <input type="text" name="SearchCity" size="30" required>
+                </label>
+                <br>
+                <label>State:
+                    <input type="text" name="SearchState" size="30" required>
+                </label>
+                <br>
+                <label>Zip:
+                    <input type="number" name="SearchZip" size="30" required>
+                </label>
+                <br>
+                <input type="submit" name="HospitalSearch" value="Search"/>
+            </fieldset>
+        </form>
+        <br>
+        <table id="mainHospitalTable" style="border:solid black">
+            <caption>Search Results</caption>
+            <thead>
+                <tr style="border:solid black">
+                    <th style="border:solid black">Name</th>
+                    <th style="border:solid black">City</th>
+                    <th style="border:solid black">State</th>
+                    <th style="border:solid black">Zip</th>
+                </tr>
+            </thead>
+                <tbody style="border:solid black">
+                <!--Use Handlebar templates to fill in cells with appropriate data from databse.-->
+                <tr id="hospitalTable" style="border:solid black">
+                    <!--Keep id values hidden-->
+                    <td class="entryId" id="entryId" hidden style="border:solid black">Test</td>
+                    <td id="entryName" style="border:solid black">Test Hospital</td>
+                    <td id="entryCity" style="border:solid black">Baltimore</td>
+                    <td id="entryState" style="border:solid black">Maryland</td>
+                    <td id="entryZip" style="border:solid black">21111</td>
+                    <td><button class="deleteRow" type="button"></button>Delete</button></td>
+                    <td><button class="editRow" type="button"></button>Edit</button></td>
+                    <td><button class="updateRow" type="button"></button>Update</button></td>
+                </tr>
+            </tbody>
+        </table>
         <script src="hospitals.js" async defer></script>
     </body>
 </html>

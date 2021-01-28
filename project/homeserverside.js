@@ -28,6 +28,18 @@ app.get('/payors', function(req, res, next){
   res.render('payors');
 });
 
+app.get('/physicians', function(req, res, next){
+  res.render('physicians');
+});
+
+app.get('/hospitals', function(req, res, next){
+  res.render('hospitals');
+});
+
+app.get('/hospitalsandpayors', function(req, res, next){
+  res.render('hospitalsandpayors');
+});
+
 app.use(function(req,res){
   res.status(404);
   res.render('404');
