@@ -20,6 +20,26 @@ app.get('/', function(req, res, next){
   res.render('home');
 });
 
+app.get('/patients', function(req, res, next){
+  res.render('patients');
+});
+
+app.get('/payors', function(req, res, next){
+  res.render('payors');
+});
+
+app.get('/physicians', function(req, res, next){
+  res.render('physicians');
+});
+
+app.get('/hospitals', function(req, res, next){
+  res.render('hospitals');
+});
+
+app.get('/hospitalsandpayors', function(req, res, next){
+  res.render('hospitalsandpayors');
+});
+
 app.use(function(req,res){
   res.status(404);
   res.render('404');
