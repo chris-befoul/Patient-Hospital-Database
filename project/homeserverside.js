@@ -14,7 +14,7 @@ var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.use(express.static('public'));
-app.set('port', 8364);
+app.set('port', process.argv[2]);
 
 app.get('/', function(req, res, next){
   res.render('home');
