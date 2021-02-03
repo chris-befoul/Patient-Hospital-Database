@@ -27,13 +27,20 @@
             <fieldset>
                 <legend>Add Hospital and Payor Relationship</legend>
                 <br>
-                <label>Hospital ID:
-                    <input type="text" name="AddHospitalID" size="30" required>
-                </label>
+                <select id="HospitalName" name="HospitalName">
+                    <option value="NULL">None</option>
+                    {{#each hospitalName}}
+                        <option>{{this}}</option>
+                    {{/each}}
+                </select>
                 <br>
-                <label>Payor ID:
-                <input type="text" name="AddPayorID" size="30" required>
-                </label>
+                <label for="PayorName">Hospital: </label>
+                <select id="PayorName" name="PayorName">
+                    <option value="NULL">None</option>
+                    {{#each payorName}}
+                        <option>{{this}}</option>
+                    {{/each}}
+                </select>
             </fieldset>
         </form>
         <br>
