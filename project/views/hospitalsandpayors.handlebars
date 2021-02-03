@@ -27,6 +27,7 @@
             <fieldset>
                 <legend>Add Hospital and Payor Relationship</legend>
                 <br>
+                <label for="PayorName">Hospital: </label>
                 <select id="HospitalName" name="HospitalName">
                     <option value="NULL">None</option>
                     {{#each hospitalName}}
@@ -34,7 +35,7 @@
                     {{/each}}
                 </select>
                 <br>
-                <label for="PayorName">Hospital: </label>
+                <label for="PayorName">Payor: </label>
                 <select id="PayorName" name="PayorName">
                     <option value="NULL">None</option>
                     {{#each payorName}}
