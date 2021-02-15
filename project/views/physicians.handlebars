@@ -72,15 +72,18 @@
             </thead>
                 <tbody style="border:solid black">
                 <!--Use Handlebar templates to fill in cells with appropriate data from databse.-->
+                {{#each entries}}
                 <tr id="physicianTable" style="border:solid black">
                     <!--Keep id values hidden-->
-                    <td class="entryId" id="entryId" hidden style="border:solid black">Test</td>
-                    <td id="entryName" style="border:solid black">Test Physician</td>
-                    <td id="entrySpecialty" style="border:solid black">Doctor</td>
+                    <td class="entryId" id="entryId" hidden style="border:solid black">{{this.id}}</td>
+                    <td id="firstName" style="border:solid black">{{this.firstName}}</td>
+                    <td id="lastName" style="border:solid black">{{this.lastName}}</td>
+                    <td id="specialty" style="border:solid black">{{this.specialty}}</td>
                     <td><button class="deleteRow" type="button">Delete</button></td>
                     <td><button class="editRow" type="button">Edit</button></td>
                     <td><button class="updateRow" type="button">Update</button></td>
                 </tr>
+                {{/each}}
             </tbody>
         </table>
         <script src="physicians.js" async defer></script>
