@@ -63,7 +63,7 @@ document.getElementById("addPhysician").addEventListener("click", function(event
           console.log(response);
   
           // Get workout rows for database to display latest data on page.
-          getWorkouts();
+          getPhysicians();
   
         } else {
         console.log("Error in network request: " + req.statusText);
