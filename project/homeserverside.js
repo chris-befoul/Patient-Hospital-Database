@@ -28,9 +28,9 @@ app.get('/payors', function(req, res, next){
   res.render('payors');
 });
 
-app.get('/physicians', function(req, res, next){
-  res.render('physicians');
-});
+// app.get('/physicians', function(req, res, next){
+//   res.render('physicians');
+// });
 
 app.use('/physicians', require('./physiciansserverside.js'));
 
