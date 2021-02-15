@@ -2,8 +2,8 @@
 // Import express and handlebars.
 var express = require('express');
 var handlebars = require('express-handlebars').create({defaultLayout: 'main'});
-
 var app = express();
+var mysql = require('./dbcon.js');
 
 app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars');
@@ -28,9 +28,9 @@ app.get('/payors', function(req, res, next){
   res.render('payors');
 });
 
-app.get('/physicians', function(req, res, next){
-  res.render('physicians');
-});
+// app.get('/physicians', function(req, res, next){
+//   res.render('physicians');
+// });
 
 app.use('/physicians', require('./physiciansserverside.js'));
 
