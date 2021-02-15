@@ -52,7 +52,7 @@ document.getElementById("addPhysician").addEventListener("click", function(event
     var lastName = document.getElementById("addLast").value;
     var firstName = document.getElementById("addFirst").value;
     var specialty = document.getElementById("addSpecialty").value;
-  
+    console.log(lastName + firstName + specialty);
     if (lastName && firstName && specialty) {
       req.open('POST', 'http://flip1.engr.oregonstate.edu:9919/physicians?lastName=' + lastName + "&firstName=" + firstName + "&specialty=" + specialty, true);
   
