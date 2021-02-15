@@ -17,7 +17,6 @@ app.use(express.static('public'));
 app.set('port', process.argv[2]);
 
 app.get('/', function(req, res, next){
-  console.log("testhome")
   res.render('home');
 });
 
@@ -36,7 +35,6 @@ app.get('/payors', function(req, res, next){
 app.use('/physicians', require('./physiciansserverside.js'));
 
 app.get('/hospitals', function(req, res, next){
-  console.log("test")
   res.render('hospitals');
 });
 
