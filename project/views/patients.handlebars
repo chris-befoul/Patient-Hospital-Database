@@ -23,6 +23,119 @@
             <li class="menuItem"><a href="/payors">Payors</a></li>
             <li class="menuItem"><a href="/hospitalsandpayors">Hospitals and Payors Relationship</a></li>
           </ul>
+        <form name="Add">
+            <fieldset>
+                <legend>Add Patient</legend>
+                <br>
+                <label>Last Name:
+                    <input type="text" name="AddLast" size="30" required>
+                </label>
+                <br>
+                <label>First Name:
+                <input type="text" name="AddFirst" size="30" required>
+                </label>
+                <br>
+                <label>Date of Birth:
+                    <input type="date" name="AddDob" size="30" required>
+                </label>
+                <br>
+                <label>Street Address:
+                    <input type="text" name="AddStreet" size="30" required>
+                </label>
+                <br>
+                <label>City:
+                    <input type="text" name="AddCity" size="30" required>
+                </label>
+                <br>
+                <label>State:
+                    <input type="text" name="AddState" size="30" required>
+                </label>
+                <br>
+                <label>Zip:
+                    <input type="number" name="AddZip" size="30" required>
+                </label>
+                <br>
+                <label>Gender:
+                    <br>
+                    <select name="AddGender">
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                    </select>
+                </label>
+                <br>
+                <label>Primary Diagnosis:
+                    <input type="text" name="AddDiagnosis" size="30" required>
+                </label>
+                <br>
+                <label>Physician Identification Number:
+                    <input type="number" name="AddPhysID" size="30">
+                </label>
+                <br>
+                <label for="PayName">Payor: </label>
+                <select id="PayName" name="PayName">
+                    <option value="NULL">None</option>
+                    {{#each Payor_name}}
+                        <option>{{this}}</option>
+                    {{/each}}
+                </select>
+                <br>
+                <input type="submit" name="AddPat" value="Add Patient"/>
+            </fieldset>
+        </form>
+        <br>
+        <form name="Search">
+            <fieldset>
+                <legend>Patient Search</legend>
+                <br>
+                <label>Last Name:
+                    <input type="text" name="SearchLast" size="30" required>
+                </label>
+                <br>
+                <label>First Name:
+                    <input type="text" name="SearchFirst" size="30" required>
+                </label>
+                <br>
+                <label>Date of Birth:
+                    <input type="date" name="SearchDob" size="30" required>
+                </label>
+                <br>
+                <input type="submit" name="PatSearch" value="Search Patient"/>
+            </fieldset>
+        </form>
+        <br>
+        <br>
+        <table id="PatientsTable" type="text/x-handlebars-template">
+            <caption>Search Results</caption>
+            <thead>
+                <tr>
+                    <th style="border:solid black">First Name</th>
+                    <th style="border:solid black">Last Name</th>
+                    <th style="border:solid black">DOB</th>
+                    <th style="border:solid black">Address</th>
+                    <th style="border:solid black">City</th>
+                    <th style="border:solid black">State</th>
+                    <th style="border:solid black">Zip Code</th>
+                    <th style="border:solid black">Gender</th>
+                    <th style="border:solid black">Primary Diagnosis</th>
+                </tr>
+            </thead>
+            <!--Utilizing handlebars to fill in search data into table below, mock data used to visualize-->
+                <tr>
+                    <td class="patientID" id="patientID" hidden style="border:solid black">Test</td>
+                    <td id="fname" style="border:solid black">John</td>
+                    <td id="lname" style="border:solid black">Doe</td>
+                    <td id="dob" style="border:solid black">02/14/1967</td>
+                    <td id="address" style="border:solid black">9160 Alligator Loop</td>
+                    <td id="city" style="border:solid black">Apex</td>
+                    <td id="state" style="border:solid black">North Carolina</td>
+                    <td id="zip" style="border:solid black">27502</td>
+                    <td id="gender" style="border:solid black">Male</td>
+                    <td id="primDiagnosis" style="border:solid black">Coronavirus</td>
+                    <td><button class="deleteRow" type="button">Delete</button></td>
+                    <td><button class="editRow" type="button">Edit</button></td>
+                    <td><button class="updateRow" type="button">Update</button></td>
+                </tr>
+        </table>
         <script src="patients.js" async defer></script>
     </body>
 </html>

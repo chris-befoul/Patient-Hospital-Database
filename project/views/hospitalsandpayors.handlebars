@@ -27,13 +27,23 @@
             <fieldset>
                 <legend>Add Hospital and Payor Relationship</legend>
                 <br>
-                <label>Hospital ID:
-                    <input type="text" name="AddHospitalID" size="30" required>
-                </label>
+                <label for="PayorName">Hospital: </label>
+                <select id="HospitalName" name="HospitalName">
+                    <option value="NULL">None</option>
+                    {{#each hospitalName}}
+                        <option>{{this}}</option>
+                    {{/each}}
+                </select>
                 <br>
-                <label>Payor ID:
-                <input type="text" name="AddPayorID" size="30" required>
-                </label>
+                <label for="PayorName">Payor: </label>
+                <select id="PayorName" name="PayorName">
+                    <option value="NULL">None</option>
+                    {{#each payorName}}
+                        <option>{{this}}</option>
+                    {{/each}}
+                </select>
+                <br>
+                <input type="submit" name="AddRelationship" value="Add Relationship"/>
             </fieldset>
         </form>
         <br>
@@ -49,7 +59,7 @@
                     <input type="text" name="SearchPayorID" size="30" required>
                 </label>
                 <br>
-                <input type="submit" name="HospitalPayorSearch" value="Search"/>
+                <input type="submit" name="HospitalPayorSearch" value="Search Relationship"/>
             </fieldset>
         </form>
         <br>
@@ -68,9 +78,9 @@
                     <td class="entryId" id="entryId" hidden style="border:solid black">Test</td>
                     <td id="entryHospitalID" style="border:solid black">Test Hospital ID</td>
                     <td id="entryPayorID" style="border:solid black">Test Payor ID</td>
-                    <td><button class="deleteRow" type="button"></button>Delete</button></td>
-                    <td><button class="editRow" type="button"></button>Edit</button></td>
-                    <td><button class="updateRow" type="button"></button>Update</button></td>
+                    <td><button class="deleteRow" type="button">Delete</button></td>
+                    <td><button class="editRow" type="button">Edit</button></td>
+                    <td><button class="updateRow" type="button">Update</button></td>
                 </tr>
             </tbody>
         </table>
