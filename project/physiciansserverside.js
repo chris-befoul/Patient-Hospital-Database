@@ -12,6 +12,7 @@ module.exports = function(){
     // POST route to insert new entry into table.
     router.post('/', function(req,res,next){
         var context = {};
+        var mysql = req.app.get('mysql');
         console.log("test2")
         mysql.pool.query("INSERT INTO Physicians (`lastName`, `firstName`, `specialty`) VALUES (?, ?, ?)", 
         [req.query.lastName, req.query.firstName, req.query.specialty], function(err, result) {
