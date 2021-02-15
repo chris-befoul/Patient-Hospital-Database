@@ -17,6 +17,7 @@ app.use(express.static('public'));
 app.set('port', process.argv[2]);
 
 app.get('/', function(req, res, next){
+  console.log("testhome")
   res.render('home');
 });
 
