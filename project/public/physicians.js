@@ -52,9 +52,9 @@ document.getElementById("addPhysician").addEventListener("click", function(event
     var lastName = document.getElementById("addLast").value;
     var firstName = document.getElementById("addFirst").value;
     var specialty = document.getElementById("addSpecialty").value;
-    console.log(lastName + firstName + specialty);
+
     if (lastName && firstName && specialty) {
-      req.open('POST', 'http://flip1.engr.oregonstate.edu:9919/physicians?lastName=' + lastName + "&firstName=" + firstName + "&specialty=" + specialty, true);
+      req.open('POST', 'http://flip1.engr.oregonstate.edu:9199/physicians?lastName=' + lastName + "&firstName=" + firstName + "&specialty=" + specialty, true);
   
       // Event listener that fires when entire page is loaded, and triggers function.
       req.addEventListener('load',function(){
@@ -82,7 +82,7 @@ document.getElementById("addPhysician").addEventListener("click", function(event
     var req = new XMLHttpRequest();
     var id = idVal;
       
-    req.open('GET', 'http://flip1.engr.oregonstate.edu:9919/physicians?id=' + id, true);
+    req.open('GET', 'http://flip1.engr.oregonstate.edu:9199/physicians?id=' + id, true);
       
     // Event listener that fires when entire page is loaded, and triggers function.
     req.addEventListener('load',function(){
@@ -111,7 +111,7 @@ document.getElementById("addPhysician").addEventListener("click", function(event
     var firstName = table.rows[rowIndex].cells[2].innerHTML;
     var specialty = table.rows[rowIndex].cells[3].innerHTML;
   
-    req.open('POST', 'http://flip1.engr.oregonstate.edu:9919/update?id=' + id + "&lastName=" + lastName + "&firstName=" + firstName + "&specialty=" + specialty, true);
+    req.open('POST', 'http://flip1.engr.oregonstate.edu:9199/update?id=' + id + "&lastName=" + lastName + "&firstName=" + firstName + "&specialty=" + specialty, true);
   
     // Event listener that fires when entire page is loaded, and triggers function.
     req.addEventListener('load',function(){
