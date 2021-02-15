@@ -13,7 +13,7 @@ module.exports = function(){
     router.post('/', function(req,res,next){
         var context = {};
         console.log("test2")
-        pool.query("INSERT INTO Physicians (`lastName`, `firstName`, `specialty`) VALUES (?, ?, ?)", 
+        mysql.pool.query("INSERT INTO Physicians (`lastName`, `firstName`, `specialty`) VALUES (?, ?, ?)", 
         [req.query.lastName, req.query.firstName, req.query.specialty], function(err, result) {
         if(err){
             next(err);
