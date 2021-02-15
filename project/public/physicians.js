@@ -54,7 +54,7 @@ document.getElementById("addPhysician").addEventListener("click", function(event
     var specialty = document.getElementById("addSpecialty").value;
   
     if (lastName && firstName && specialty) {
-      req.open('PUT', 'http://flip1.engr.oregonstate.edu:9919/?lastName=' + lastName + "&firstName=" + firstName + "&specialty=" + specialty, true);
+      req.open('POST', 'http://flip1.engr.oregonstate.edu:9919/?lastName=' + lastName + "&firstName=" + firstName + "&specialty=" + specialty, true);
   
       // Event listener that fires when entire page is loaded, and triggers function.
       req.addEventListener('load',function(){
