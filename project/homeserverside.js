@@ -15,6 +15,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.use(express.static('public'));
 app.set('port', process.argv[2]);
+app.set('mysql', mysql);
 
 app.get('/', function(req, res, next){
   res.render('home');
