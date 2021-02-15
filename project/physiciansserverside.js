@@ -2,7 +2,7 @@ module.exports = function(){
     var express = require('express');
     var router = express.Router();
     var cors = require('cors');
-    express.use(cors())
+    router.use(cors())
 
     router.get('/', function(req, res, next){
         console.log("test1")
