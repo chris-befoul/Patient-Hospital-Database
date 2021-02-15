@@ -28,17 +28,17 @@
                 <legend>Add Physician</legend>
                 <br>
                 <label>Last Name:
-                    <input type="text" name="AddLast" size="30" required>
+                    <input type="text" name="addLast" id="addLast" size="30" required>
                 </label>
                 <br>
                 <label>First Name:
-                <input type="text" name="AddFirst" size="30" required>
+                <input type="text" name="addFirst" id="addFirst" size="30" required>
                 </label>
                 <br>
                 <label>Specialty:
-                    <input type="text" name="AddSpecialty" size="30" required>
+                    <input type="text" name="addSpecialty" id="addSpeciality" size="30" required>
                 </label>
-                <input type="submit" name="AddPhysician" value="Add Physician"/>
+                <input type="submit" name="addPhysician" id="addPhysician" value="Add Physician"/>
             </fieldset>
         </form>
         <br>
@@ -47,18 +47,18 @@
                 <legend>Physician Search</legend>
                 <br>
                 <label>Last Name:
-                    <input type="text" name="SearchLast" size="30" required>
+                    <input type="text" name="searchLast" size="30" required>
                 </label>
                 <br>
                 <label>First Name:
-                    <input type="text" name="SearchFirst" size="30" required>
+                    <input type="text" name="searchFirst" size="30" required>
                 </label>
                 <br>
                 <label>Specialty:
-                    <input type="text" name="SearchSpecialty" size="30" required>
+                    <input type="text" name="searchSpecialty" size="30" required>
                 </label>
                 <br>
-                <input type="submit" name="PhysicianSearch" value="Search Physician"/>
+                <input type="submit" name="physicianSearch" value="Search Physician"/>
             </fieldset>
         </form>
         <br>
@@ -72,15 +72,18 @@
             </thead>
                 <tbody style="border:solid black">
                 <!--Use Handlebar templates to fill in cells with appropriate data from databse.-->
+                {{#each entries}}
                 <tr id="physicianTable" style="border:solid black">
                     <!--Keep id values hidden-->
-                    <td class="entryId" id="entryId" hidden style="border:solid black">Test</td>
-                    <td id="entryName" style="border:solid black">Test Physician</td>
-                    <td id="entrySpecialty" style="border:solid black">Doctor</td>
+                    <td class="entryId" id="entryId" hidden style="border:solid black">{{this.id}}</td>
+                    <td id="entryFName" style="border:solid black">{{this.firstName}}</td>
+                    <td id="entryLName" style="border:solid black">{{this.lastName}}</td>
+                    <td id="entrySpecialty" style="border:solid black">{{this.specialty}}</td>
                     <td><button class="deleteRow" type="button">Delete</button></td>
                     <td><button class="editRow" type="button">Edit</button></td>
                     <td><button class="updateRow" type="button">Update</button></td>
                 </tr>
+                {{/each}}    
             </tbody>
         </table>
         <script src="physicians.js" async defer></script>
