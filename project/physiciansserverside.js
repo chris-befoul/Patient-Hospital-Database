@@ -3,7 +3,7 @@ module.exports = function(){
     var router = express.Router();
 
     // POST route to insert new entry into table.
-    app.post('/', function(req,res,next){
+    app.post('/physicians', function(req,res,next){
         var context = {};
     
         pool.query("INSERT INTO Physicians (`lastName`, `firstName`, `specialty`) VALUES (?, ?, ?)", 
@@ -15,4 +15,4 @@ module.exports = function(){
         context.results = "Inserted id " + result.insertId;
         res.render('physicians', context);
         })
-    });
+    })};
