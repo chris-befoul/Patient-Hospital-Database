@@ -10,7 +10,7 @@ module.exports = function(){
     router.post('/', function(req,res,next){
         var context = {};
         var mysql = req.app.get('mysql');
-        console.log(req.query);
+
         mysql.pool.query("INSERT INTO Physicians (`lastName`, `firstName`, `specialty`) VALUES (?, ?, ?)", 
         [req.query.lastName, req.query.firstName, req.query.specialty], function(err, result) {
         if(err){
