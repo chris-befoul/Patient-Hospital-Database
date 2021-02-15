@@ -32,6 +32,8 @@ app.get('/physicians', function(req, res, next){
   res.render('physicians');
 });
 
+app.use('/physicians', require('./physiciansserverside.js'));
+
 app.get('/hospitals', function(req, res, next){
   res.render('hospitals');
 });

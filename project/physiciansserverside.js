@@ -2,8 +2,12 @@ module.exports = function(){
     var express = require('express');
     var router = express.Router();
 
+    router.get('/', function(req, res, next){
+        res.render('physicians');
+      });
+
     // POST route to insert new entry into table.
-    app.post('/physicians', function(req,res,next){
+    router.post('/', function(req,res,next){
         var context = {};
     
         pool.query("INSERT INTO Physicians (`lastName`, `firstName`, `specialty`) VALUES (?, ?, ?)", 
