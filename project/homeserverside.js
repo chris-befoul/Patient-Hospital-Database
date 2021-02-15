@@ -4,6 +4,8 @@ var express = require('express');
 var handlebars = require('express-handlebars').create({defaultLayout: 'main'});
 var app = express();
 var mysql = require('./dbcon.js');
+var cors = require('cors');
+app.use(cors())
 
 app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars');
