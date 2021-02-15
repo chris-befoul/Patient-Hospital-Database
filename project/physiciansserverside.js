@@ -15,12 +15,12 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.use(express.static('public'));
 
-router.get('/', function(req, res, next){
+app.get('/', function(req, res, next){
     res.render('physicians');
     });
 
 // POST route to insert new entry into table.
-router.post('/', function(req,res,next){
+app.post('/', function(req,res,next){
     var context = {};
 
     pool.query("INSERT INTO Physicians (`lastName`, `firstName`, `specialty`) VALUES (?, ?, ?)", 
