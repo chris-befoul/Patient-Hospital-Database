@@ -4,7 +4,6 @@ var express = require('express');
 var handlebars = require('express-handlebars').create({defaultLayout: 'main'});
 var app = express();
 var mysql = require('./dbcon.js');
-var cors = require('cors')
 
 app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars');
@@ -16,8 +15,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.use(express.static('public'));
 app.set('port', process.argv[2]);
-app.use(cors())
- 
+
 app.get('/', function(req, res, next){
   res.render('home');
 });
@@ -42,6 +40,12 @@ app.get('/hospitals', function(req, res, next){
 
 app.get('/hospitalsandpayors', function(req, res, next){
   res.render('hospitalsandpayors');
+});
+
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  next();      
 });
 
 app.use(function(req,res){
