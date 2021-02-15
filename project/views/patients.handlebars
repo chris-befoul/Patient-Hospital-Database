@@ -68,14 +68,18 @@
                 </label>
                 <br>
                 <label>Physician Identification Number:
-                    <input type="number" name="AddPhysID" size="30" required>
+                    <input type="number" name="AddPhysID" size="30">
                 </label>
                 <br>
-                <label>Payor ID:
-                    <input type="number" name="AddPayorID" size="30" required>
-                </label>
+                <label for="PayName">Payor: </label>
+                <select id="PayName" name="PayName">
+                    <option value="NULL">None</option>
+                    {{#each Payor_name}}
+                        <option>{{this}}</option>
+                    {{/each}}
+                </select>
                 <br>
-                <input type="submit" name="AddPat" value="Add"/>
+                <input type="submit" name="AddPat" value="Add Patient"/>
             </fieldset>
         </form>
         <br>
@@ -95,7 +99,7 @@
                     <input type="date" name="SearchDob" size="30" required>
                 </label>
                 <br>
-                <input type="submit" name="PatSearch" value="Search"/>
+                <input type="submit" name="PatSearch" value="Search Patient"/>
             </fieldset>
         </form>
         <br>

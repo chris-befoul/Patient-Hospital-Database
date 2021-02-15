@@ -42,7 +42,8 @@
             <label>Zip Code:
                 <input type="number" name="PayZip" size="30">
             </label>
-            <input type="submit" name="AddPay" value="Add"/>
+            <br>
+            <input type="submit" name="AddPay" value="Add Payor"/>
         </fieldset>
     </form>
     <br>
@@ -54,7 +55,7 @@
                 <input type="text" name="SearchCompany" size="30">
             </label>
             <br>
-            <input type="submit" name="SearchPay" value="Search"/>
+            <input type="submit" name="SearchPay" value="Search Payor"/>
         </fieldset>
     </form>
         <table id="PayorsTable" type="text/x-handlebars-template">
@@ -70,7 +71,7 @@
             <!--Utilizing handlebars to fill in search data into table below, mock data used to visualize-->
                 <tr>
                     <td class="payorID" id="payorID" hidden style="border:solid black">Test</td>
-                    <td id="fname" style="border:solid black">Blue Cross Blue Shield</td>
+                    <td id="companyName" style="border:solid black">Blue Cross Blue Shield</td>
                     <td id="city" style="border:solid black">Chicago</td>
                     <td id="state" style="border:solid black">Illinois</td>
                     <td id="zip" style="border:solid black">60601</td>
