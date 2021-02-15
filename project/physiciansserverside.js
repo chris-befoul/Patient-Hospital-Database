@@ -8,7 +8,7 @@ module.exports = function(){
         });
 
     // POST route to insert new entry into table.
-    router.post('/', function(req,res,next){
+    router.post('/physicians', function(req,res,next){
         var context = {};
         console.log("test2")
         pool.query("INSERT INTO Physicians (`lastName`, `firstName`, `specialty`) VALUES (?, ?, ?)", 
