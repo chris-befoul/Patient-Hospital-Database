@@ -1,6 +1,8 @@
 module.exports = function(){
     var express = require('express');
     var router = express.Router();
+    var cors = require('cors');
+    express.use(cors())
 
     router.get('/', function(req, res, next){
         console.log("test1")
@@ -21,12 +23,6 @@ module.exports = function(){
         res.render('physicians', context);
         })
     });
-
-    router.use(function (req, res, next) {
-        res.header("Access-Control-Allow-Origin", "*");
-        res.header("Access-Control-Allow-Headers", "X-Requested-With");
-        next();      
-      });
 
     return router;
 }();
