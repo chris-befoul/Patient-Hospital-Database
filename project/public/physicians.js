@@ -43,6 +43,7 @@ function getPhysicians(lastName, firstName, specialty) {
     }});
     
     req.send();
+    event.preventDefault();
   };
 
 // Event listener for submit button for adding a new row.
