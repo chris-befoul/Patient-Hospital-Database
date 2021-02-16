@@ -96,7 +96,7 @@ document.getElementById("searchPhysician").addEventListener("click", function(ev
   });
   
   // Function to delete row and takes id of row as a parameter.
-  function deleteRow(idVal) {
+function deleteRow(idVal) {
     var req = new XMLHttpRequest();
     var id = idVal;
       
@@ -119,56 +119,56 @@ document.getElementById("searchPhysician").addEventListener("click", function(ev
   
 // Function to update row and takes id of row as a parameter.
 function updateRow(idVal) {
-var req = new XMLHttpRequest();
-var id = idVal;
-var table = document.getElementById("mainPhysicianTable");
-var rowIndex = findRow(idVal)
+    var req = new XMLHttpRequest();
+    var id = idVal;
+    var table = document.getElementById("mainPhysicianTable");
+    var rowIndex = findRow(idVal)
 
-// Variables for each entry in row that needs to be upated after editing.
-var lastName = table.rows[rowIndex].cells[1].innerHTML;
-var firstName = table.rows[rowIndex].cells[2].innerHTML;
-var specialty = table.rows[rowIndex].cells[3].innerHTML;
+    // Variables for each entry in row that needs to be upated after editing.
+    var lastName = table.rows[rowIndex].cells[1].innerHTML;
+    var firstName = table.rows[rowIndex].cells[2].innerHTML;
+    var specialty = table.rows[rowIndex].cells[3].innerHTML;
 
-req.open('POST', 'http://flip1.engr.oregonstate.edu:9199/update?id=' + id + "&lastName=" + lastName + "&firstName=" + firstName + "&specialty=" + specialty, true);
+    req.open('POST', 'http://flip1.engr.oregonstate.edu:9199/update?id=' + id + "&lastName=" + lastName + "&firstName=" + firstName + "&specialty=" + specialty, true);
 
-// Event listener that fires when entire page is loaded, and triggers function.
-req.addEventListener('load',function(){
-    if(req.status >= 200 && req.status < 400){
-    var response = req.responseText;
-    console.log(response);
-    
-    // Change each cell back to being uneditable.
-    table.rows[rowIndex].cells[1].contentEditable = false;
-    table.rows[rowIndex].cells[2].contentEditable = false;
-    table.rows[rowIndex].cells[3].contentEditable = false;
+    // Event listener that fires when entire page is loaded, and triggers function.
+    req.addEventListener('load',function(){
+        if(req.status >= 200 && req.status < 400){
+        var response = req.responseText;
+        console.log(response);
+        
+        // Change each cell back to being uneditable.
+        table.rows[rowIndex].cells[1].contentEditable = false;
+        table.rows[rowIndex].cells[2].contentEditable = false;
+        table.rows[rowIndex].cells[3].contentEditable = false;
 
-    getPhysicians();
+        getPhysicians();
 
-    } else {
-    console.log("Error in network request: " + req.statusText);
-};
-req.send();
-})};
+        } else {
+        console.log("Error in network request: " + req.statusText);
+    };
+    req.send();
+    })};
 
 // Function to make table cells editable.
 function editRow(idVal) {
-var table = document.getElementById("mainPhysicianTable");
-var rowIndex = findRow(idVal)
-// Let each cell in a particular row be editable.
-table.rows[rowIndex].cells[1].contentEditable = true;
-table.rows[rowIndex].cells[2].contentEditable = true;
-table.rows[rowIndex].cells[3].contentEditable = true;
-};
+    var table = document.getElementById("mainPhysicianTable");
+    var rowIndex = findRow(idVal)
+    // Let each cell in a particular row be editable.
+    table.rows[rowIndex].cells[1].contentEditable = true;
+    table.rows[rowIndex].cells[2].contentEditable = true;
+    table.rows[rowIndex].cells[3].contentEditable = true;
+    };
 
-// Function to find row with matching id value and return row index.
-function findRow(idVal) {
-var table = document.getElementById("mainPhysicianTable");
-var rowIndex;
+    // Function to find row with matching id value and return row index.
+    function findRow(idVal) {
+    var table = document.getElementById("mainPhysicianTable");
+    var rowIndex;
 
-// For loop to iterate through table rows.
-for (var i = 0, row; row = table.rows[i]; i++) {
+    // For loop to iterate through table rows.
+    for (var i = 0, row; row = table.rows[i]; i++) {
 
-    if (row.cells[0].innerHTML == idVal) {
-    var rowIndex = i;
-    return rowIndex;
-}}};
+        if (row.cells[0].innerHTML == idVal) {
+        var rowIndex = i;
+        return rowIndex;
+    }}};
