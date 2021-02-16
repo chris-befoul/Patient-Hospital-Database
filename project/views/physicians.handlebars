@@ -80,9 +80,9 @@
                         <td id="firstName" style="border:solid black">{{this.firstName}}</td>
                         <td id="lastName" style="border:solid black">{{this.lastName}}</td>
                         <td id="specialty" style="border:solid black">{{this.specialty}}</td>
-                        <td><button class="deleteRow" type="button">Delete</button></td>
-                        <td><button class="editRow" type="button">Edit</button></td>
-                        <td><button class="updateRow" type="button">Update</button></td>
+                        <td><button class="deleteRow" type="button" value={{this.physicianID}}>Delete</button></td>
+                        <td><button class="editRow" type="button" value={{this.physicianID}}>Edit</button></td>
+                        <td><button class="updateRow" type="button" value={{this.physicianID}}>Update</button></td>
                     </tr>
                     {{/each}}
                 </tbody>
