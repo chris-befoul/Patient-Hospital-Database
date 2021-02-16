@@ -55,8 +55,7 @@ document.getElementById("addPhysician").addEventListener("click", function(event
 
     if (lastName && firstName && specialty) {
       req.open('POST', 'http://flip1.engr.oregonstate.edu:9199/physicians?lastName=' + lastName + "&firstName=" + firstName + "&specialty=" + specialty, true);
-      req.setRequestHeader("Content-Type", "application/json");
-      
+
       // Event listener that fires when entire page is loaded, and triggers function.
       req.addEventListener('load',function(){
         if(req.status >= 200 && req.status < 400){
