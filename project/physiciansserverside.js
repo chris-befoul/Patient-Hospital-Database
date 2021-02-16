@@ -2,24 +2,35 @@ module.exports = function(){
     var express = require('express');
     var router = express.Router();
 
-    router.get('/', function(req, res, next){
-        res.render('physicians');
+        // GET route retrieving workouts from the table.
+    router.get('/', function(req, res, next) {
+      var context = {};
+        
+      // Query to return everything from the table and format the date as month-day-year.
+      mysql.pool.query('SELECT id, lastName, firstName, specialty FROM Physicians', function(err, rows, fields){
+        if(err){
+          next(err);
+          return;
+        }
+        context.results = rows;
+        res.render('physicians', context);
         });
+    });
 
     // POST route to insert new entry into table.
     router.post('/', function(req,res,next){
-        var context = {};
-        var mysql = req.app.get('mysql');
+      var context = {};
+      var mysql = req.app.get('mysql');
 
-        mysql.pool.query("INSERT INTO Physicians (`lastName`, `firstName`, `specialty`) VALUES (?, ?, ?)", 
-        [req.query.lastName, req.query.firstName, req.query.specialty], function(err, result) {
+      mysql.pool.query("INSERT INTO Physicians (`lastName`, `firstName`, `specialty`) VALUES (?, ?, ?)", 
+      [req.query.lastName, req.query.firstName, req.query.specialty], function(err, result) {
         if(err){
-            next(err);
-            return;
+          next(err);
+          return;
         }
         context.results = "Inserted id " + result.insertId;
         res.render('physicians', context);
-        })
+        });
     });
 
     return router;

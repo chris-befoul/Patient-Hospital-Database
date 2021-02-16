@@ -1,9 +1,11 @@
 // Snippets of code used from course modules, W3 Schools and GeeksforGeeks.
 // Function to GET to root directory and retrieve current workouts.
-function getPhysicians() {
+function getPhysicians(lastName, firstName, specialty) {
     var req = new XMLHttpRequest();
     
-      req.open("GET", "http://flip1.engr.oregonstate.edu:9919/", true);
+    req.open("GET", "http://flip1.engr.oregonstate.edu:9199/physicians?lastName=" + lastName + "&firstName=" + firstName + "&specialty=" + specialty, true);
+    req.setRequestHeader("Content-Type", "application/json");
+
     req.addEventListener('load',function(){
       if(req.status >= 200 && req.status < 400){
         var response = req.responseText;
@@ -77,6 +79,20 @@ document.getElementById("addPhysician").addEventListener("click", function(event
     } else {
       alert("Please fill in all fields.")
   }});
+
+// Event listener for submit button for searching for a Physician.
+document.getElementById("searchPhysician").addEventListener("click", function(event) {
+    // Variable for request.
+    var req = new XMLHttpRequest();
+  
+    // Variables for each entry in form.
+    var lastName = document.getElementById("searchLast").value;
+    var firstName = document.getElementById("searchFirst").value;
+    var specialty = document.getElementById("searchSpecialty").value;
+
+    getPhysicians(lastName, firstName, specialty);
+    
+  });
   
   // Function to delete row and takes id of row as a parameter.
   function deleteRow(idVal) {
@@ -100,58 +116,58 @@ document.getElementById("addPhysician").addEventListener("click", function(event
     req.send();
   };
   
-  // Function to update row and takes id of row as a parameter.
-  function updateRow(idVal) {
-    var req = new XMLHttpRequest();
-    var id = idVal;
-    var table = document.getElementById("mainPhysicianTable");
-    var rowIndex = findRow(idVal)
+// Function to update row and takes id of row as a parameter.
+function updateRow(idVal) {
+var req = new XMLHttpRequest();
+var id = idVal;
+var table = document.getElementById("mainPhysicianTable");
+var rowIndex = findRow(idVal)
+
+// Variables for each entry in row that needs to be upated after editing.
+var lastName = table.rows[rowIndex].cells[1].innerHTML;
+var firstName = table.rows[rowIndex].cells[2].innerHTML;
+var specialty = table.rows[rowIndex].cells[3].innerHTML;
+
+req.open('POST', 'http://flip1.engr.oregonstate.edu:9199/update?id=' + id + "&lastName=" + lastName + "&firstName=" + firstName + "&specialty=" + specialty, true);
+
+// Event listener that fires when entire page is loaded, and triggers function.
+req.addEventListener('load',function(){
+    if(req.status >= 200 && req.status < 400){
+    var response = req.responseText;
+    console.log(response);
     
-    // Variables for each entry in row that needs to be upated after editing.
-    var lastName = table.rows[rowIndex].cells[1].innerHTML;
-    var firstName = table.rows[rowIndex].cells[2].innerHTML;
-    var specialty = table.rows[rowIndex].cells[3].innerHTML;
-  
-    req.open('POST', 'http://flip1.engr.oregonstate.edu:9199/update?id=' + id + "&lastName=" + lastName + "&firstName=" + firstName + "&specialty=" + specialty, true);
-  
-    // Event listener that fires when entire page is loaded, and triggers function.
-    req.addEventListener('load',function(){
-      if(req.status >= 200 && req.status < 400){
-        var response = req.responseText;
-        console.log(response);
-        
-        // Change each cell back to being uneditable.
-        table.rows[rowIndex].cells[1].contentEditable = false;
-        table.rows[rowIndex].cells[2].contentEditable = false;
-        table.rows[rowIndex].cells[3].contentEditable = false;
-  
-        getPhysicians();
-  
-      } else {
-      console.log("Error in network request: " + req.statusText);
-    };
-    req.send();
-  })};
-  
-  // Function to make table cells editable.
-  function editRow(idVal) {
-    var table = document.getElementById("mainPhysicianTable");
-    var rowIndex = findRow(idVal)
-    // Let each cell in a particular row be editable.
-    table.rows[rowIndex].cells[1].contentEditable = true;
-    table.rows[rowIndex].cells[2].contentEditable = true;
-    table.rows[rowIndex].cells[3].contentEditable = true;
-  };
-  
-  // Function to find row with matching id value and return row index.
-  function findRow(idVal) {
-    var table = document.getElementById("mainPhysicianTable");
-    var rowIndex;
-  
-    // For loop to iterate through table rows.
-    for (var i = 0, row; row = table.rows[i]; i++) {
-  
-      if (row.cells[0].innerHTML == idVal) {
-        var rowIndex = i;
-        return rowIndex;
-  }}};
+    // Change each cell back to being uneditable.
+    table.rows[rowIndex].cells[1].contentEditable = false;
+    table.rows[rowIndex].cells[2].contentEditable = false;
+    table.rows[rowIndex].cells[3].contentEditable = false;
+
+    getPhysicians();
+
+    } else {
+    console.log("Error in network request: " + req.statusText);
+};
+req.send();
+})};
+
+// Function to make table cells editable.
+function editRow(idVal) {
+var table = document.getElementById("mainPhysicianTable");
+var rowIndex = findRow(idVal)
+// Let each cell in a particular row be editable.
+table.rows[rowIndex].cells[1].contentEditable = true;
+table.rows[rowIndex].cells[2].contentEditable = true;
+table.rows[rowIndex].cells[3].contentEditable = true;
+};
+
+// Function to find row with matching id value and return row index.
+function findRow(idVal) {
+var table = document.getElementById("mainPhysicianTable");
+var rowIndex;
+
+// For loop to iterate through table rows.
+for (var i = 0, row; row = table.rows[i]; i++) {
+
+    if (row.cells[0].innerHTML == idVal) {
+    var rowIndex = i;
+    return rowIndex;
+}}};
