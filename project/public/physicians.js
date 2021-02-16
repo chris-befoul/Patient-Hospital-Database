@@ -159,15 +159,15 @@ function editRow(idVal) {
     table.rows[rowIndex].cells[3].contentEditable = true;
     };
 
-    // Function to find row with matching id value and return row index.
-    function findRow(idVal) {
+// Function to find row with matching id value and return row index.
+function findRow(idVal) {
     var table = document.getElementById("mainPhysicianTable");
     var rowIndex;
-
+    console.log(idVal)
     // For loop to iterate through table rows.
     for (var i = 0, row; row = table.rows[i]; i++) {
 
         if (row.cells[0].innerHTML == idVal) {
         var rowIndex = i;
         return rowIndex;
-    }}};
+}}};
