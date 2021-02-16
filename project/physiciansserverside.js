@@ -5,6 +5,7 @@ module.exports = function(){
         // GET route retrieving workouts from the table.
     router.get('/', function(req, res, next) {
       var context = {};
+      var mysql = req.app.get('mysql');
         
       // Query to return everything from the table and format the date as month-day-year.
       mysql.pool.query('SELECT id, lastName, firstName, specialty FROM Physicians', function(err, rows, fields){
