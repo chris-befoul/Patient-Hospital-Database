@@ -6,7 +6,7 @@ module.exports = function(){
     router.get('/', function(req, res, next) {
       var context = {};
       var mysql = req.app.get('mysql');
-      console.log(req.query);
+
       // Query to return everything from the table and format the date as month-day-year.
       mysql.pool.query('SELECT physicianID, lastName, firstName, specialty FROM Physicians', function(err, rows, fields){
         if(err){
@@ -14,6 +14,7 @@ module.exports = function(){
           return;
         }
         context.results = rows;
+        console.log(context);
         res.render('physicians', context);
         });
     });
