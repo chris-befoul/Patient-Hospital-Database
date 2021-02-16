@@ -89,7 +89,7 @@ document.getElementById("searchPhysician").addEventListener("click", function(ev
     var lastName = document.getElementById("searchLast").value;
     var firstName = document.getElementById("searchFirst").value;
     var specialty = document.getElementById("searchSpecialty").value;
-
+    console.log(lastName + firstName + specialty);
     getPhysicians(lastName, firstName, specialty);
     
   });
