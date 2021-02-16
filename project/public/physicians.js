@@ -20,7 +20,6 @@ function getPhysicians(lastName, firstName, specialty) {
   
         // Add event listener for each delete button.
         document.querySelectorAll('.deleteRow').forEach(function(item) {
-          console.log(item.value);
           item.addEventListener('click', function(event) {
             deleteRow(item.value);
             event.preventDefault();
@@ -44,7 +43,6 @@ function getPhysicians(lastName, firstName, specialty) {
     }});
     
     req.send();
-    event.preventDefault();
   };
 
 // Event listener for submit button for adding a new row.
