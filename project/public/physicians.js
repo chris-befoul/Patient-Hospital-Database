@@ -99,7 +99,7 @@ document.getElementById("searchPhysician").addEventListener("click", function(ev
 function deleteRow(idVal) {
     var req = new XMLHttpRequest();
     var id = idVal;
-      
+    console.log(id);
     req.open('GET', 'http://flip1.engr.oregonstate.edu:9199/physicians?id=' + id, true);
       
     // Event listener that fires when entire page is loaded, and triggers function.
