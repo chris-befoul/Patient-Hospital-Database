@@ -8,7 +8,7 @@ module.exports = function(){
       var mysql = req.app.get('mysql');
         
       // Query to return everything from the table and format the date as month-day-year.
-      mysql.pool.query('SELECT id, lastName, firstName, specialty FROM Physicians', function(err, rows, fields){
+      mysql.pool.query('SELECT physicianID, lastName, firstName, specialty FROM Physicians', function(err, rows, fields){
         if(err){
           next(err);
           return;
