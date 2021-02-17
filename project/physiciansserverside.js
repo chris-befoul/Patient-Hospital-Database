@@ -32,8 +32,7 @@ module.exports = function(){
           next(err);
           return;
         }
-        context.results = rows;
-        console.log(context);
+        context.search = rows;
         res.render('physicians', context);
         });
     });

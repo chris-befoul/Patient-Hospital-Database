@@ -16,10 +16,7 @@ function getPhysicians(lastName, firstName, specialty) {
         const newDoc = parser.parseFromString(response, 'text/html');
 
         // Use DOM to get just innerHTML of the table.
-        document.getElementById("searchEntryId").innerHTML = newDoc.getElementById("searchEntryId").innerHTML; 
-        document.getElementById("searchLastName").innerHTML = newDoc.getElementById("searchLastName").innerHTML; 
-        document.getElementById("searchFirstName").innerHTML = newDoc.getElementById("searchFirstName").innerHTML; 
-        document.getElementById("searchSpecialty").innerHTML = newDoc.getElementById("searchSpecialty").innerHTML; 
+        document.getElementById("searchPhysicianTable").innerHTML = newDoc.getElementById("earchPhysicianTable").innerHTML; 
   
         // Add event listener for each delete button.
         document.querySelectorAll('.deleteRow').forEach(function(item) {
