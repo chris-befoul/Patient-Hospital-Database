@@ -5,7 +5,6 @@ module.exports = function(){
 
     // GET route retrieving physicians page.
     router.get('/', function(req, res, next) {
-
       res.render('physicians');
     });
 
