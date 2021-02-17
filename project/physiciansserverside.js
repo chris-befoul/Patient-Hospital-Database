@@ -2,6 +2,13 @@ module.exports = function(){
     var express = require('express');
     var router = express.Router();
 
+
+    // GET route retrieving physicians page.
+    router.get('/', function(req, res, next) {
+
+      res.render('physicians', context);
+    });
+
     // GET route retrieving physicians from the table using search.
     router.get('/search', function(req, res, next) {
       var context = {};
