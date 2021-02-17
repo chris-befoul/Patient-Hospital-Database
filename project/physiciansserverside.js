@@ -32,7 +32,7 @@ module.exports = function(){
           next(err);
           return;
         }
-        context.results = rows;
+        context.search = rows;
         console.log(context.results);
         res.render('physicians', context);
         });
