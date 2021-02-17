@@ -6,7 +6,7 @@ module.exports = function(){
     // GET route retrieving physicians page.
     router.get('/', function(req, res, next) {
 
-      res.render('physicians', context);
+      res.render('physicians');
     });
 
     // GET route retrieving physicians from the table using search.
