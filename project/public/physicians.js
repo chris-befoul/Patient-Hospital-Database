@@ -14,7 +14,7 @@ function getPhysicians(lastName, firstName, specialty) {
         // Constants to create DOMParser and grab response.
         const parser = new DOMParser();
         const newDoc = parser.parseFromString(response, 'text/html');
-        console.log(document.getElementsByClassName("physicianTable")[0].innerHTML + "test");
+        console.log(document.getElementsByClassName("physicianTable").innerHTML + "test");
         // Use DOM to get just innerHTML of the table.
         document.getElementsByClassName("physicianTable")[0].innerHTML = newDoc.getElementsByClassName("physicianTable")[0].innerHTML; 
   
