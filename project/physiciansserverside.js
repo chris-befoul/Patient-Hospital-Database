@@ -2,11 +2,11 @@ module.exports = function(){
     var express = require('express');
     var router = express.Router();
 
-        // GET route retrieving workouts from the table.
-    router.get('/', function(req, res, next) {
+    // GET route retrieving physicians from the table using search.
+    router.get('/search', function(req, res, next) {
       var context = {};
       var mysql = req.app.get('mysql');
-
+      console.log(req.query);
       // Query to return everything from the table and format the date as month-day-year.
       mysql.pool.query('SELECT physicianID, lastName, firstName, specialty FROM Physicians', function(err, rows, fields){
         if(err){

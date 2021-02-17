@@ -3,7 +3,7 @@
 function getPhysicians(lastName, firstName, specialty) {
     var req = new XMLHttpRequest();
     
-    req.open("GET", "http://flip1.engr.oregonstate.edu:9199/physicians?lastName=" + lastName + "&firstName=" + firstName + "&specialty=" + specialty, true);
+    req.open("GET", "http://flip1.engr.oregonstate.edu:9199/physicians/search?lastName=" + lastName + "&firstName=" + firstName + "&specialty=" + specialty, true);
     req.setRequestHeader("Content-Type", "application/json");
     console.log("test");
     req.addEventListener('load',function(){
