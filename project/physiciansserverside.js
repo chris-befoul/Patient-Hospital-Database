@@ -24,7 +24,7 @@ module.exports = function(){
     router.get('/search', function(req, res, next) {
       var context = {};
       var mysql = req.app.get('mysql');
-      console.log(req.query.lastName, req.query.firstName, req.query.specialty);
+
       // Query to return everything from the table and format the date as month-day-year.
       mysql.pool.query('SELECT physicianID, lastName, firstName, specialty FROM Physicians WHERE lastName=? AND firstName=? AND specialty=?',
       [req.query.lastName, req.query.firstName, req.query.specialty], function(err, rows, fields){
@@ -33,6 +33,7 @@ module.exports = function(){
           return;
         }
         context.search = rows;
+        console.log(context.search);
         res.render('physicians', context);
         });
     });
