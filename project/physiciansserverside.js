@@ -5,7 +5,19 @@ module.exports = function(){
 
     // GET route retrieving physicians page.
     router.get('/', function(req, res, next) {
-      res.render('physicians');
+        var context = {};
+        var mysql = req.app.get('mysql');
+        console.log(req.query);
+        // Query to return everything from the table and format the date as month-day-year.
+        mysql.pool.query('SELECT physicianID, lastName, firstName, specialty FROM Physicians', function(err, rows, fields){
+          if(err){
+            next(err);
+            return;
+          }
+          context.results = rows;
+          console.log(context);
+          res.render('physicians', context);
+          });
     });
 
     // GET route retrieving physicians from the table using search.
@@ -14,7 +26,8 @@ module.exports = function(){
       var mysql = req.app.get('mysql');
       console.log(req.query);
       // Query to return everything from the table and format the date as month-day-year.
-      mysql.pool.query('SELECT physicianID, lastName, firstName, specialty FROM Physicians', function(err, rows, fields){
+      mysql.pool.query('SELECT physicianID, lastName, firstName, specialty FROM Physicians WHERE lastName=? AND firstName=? AND specialty=?", [req.query.id]',
+      [req.query.lastName, req.query.firstName, req.query.specialty], function(err, rows, fields){
         if(err){
           next(err);
           return;
