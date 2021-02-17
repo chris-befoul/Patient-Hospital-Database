@@ -15,7 +15,7 @@ module.exports = function(){
             return;
           }
           context.results = rows;
-          console.log(context);
+          context.search = {physicianID:NULL, firstName:NULL, lastName:NULL, specialty:NULL};
           res.render('physicians', context);
           });
     });
@@ -33,7 +33,7 @@ module.exports = function(){
           return;
         }
         context.search = rows;
-        console.log(context.results);
+        console.log(context.search);
         res.render('physicians', context);
         });
     });

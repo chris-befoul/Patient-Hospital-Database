@@ -5,7 +5,7 @@ function getPhysicians(lastName, firstName, specialty) {
     
     req.open("GET", "http://flip1.engr.oregonstate.edu:9199/physicians/search?lastName=" + lastName + "&firstName=" + firstName + "&specialty=" + specialty, true);
     req.setRequestHeader("Content-Type", "application/json");
-    console.log("test");
+
     req.addEventListener('load',function(){
       if(req.status >= 200 && req.status < 400){
         var response = req.responseText;

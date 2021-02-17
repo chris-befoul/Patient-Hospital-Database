@@ -73,13 +73,15 @@
             </thead>
                 <tbody style="border:solid black">
                 <!--Use Handlebar templates to fill in cells with appropriate data from databse.-->
+                    {{#each search}}
                     <tr id="searchPhysicianTable" style="border:solid black">
                         <!--Keep id values hidden-->
-                        <td id="searchEntryId" hidden style="border:solid black"></td>
-                        <td id="searchFirstName" style="border:solid black"></td>
-                        <td id="searchLastName" style="border:solid black"></td>
-                        <td id="searchSpecialty" style="border:solid black"></td>
+                        <td id="searchEntryId" hidden style="border:solid black">{{this.physicianID}}</td>
+                        <td id="searchFirstName" style="border:solid black">{{this.firstName}}</td>
+                        <td id="searchLastName" style="border:solid black">{{this.lastName}}</td>
+                        <td id="searchSpecialty" style="border:solid black">{{this.specialty}}</td>
                     </tr>
+                    {{/each}}
                 </tbody>
         </table>
         <br>
