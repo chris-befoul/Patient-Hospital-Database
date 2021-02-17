@@ -62,7 +62,7 @@
             </fieldset>
         </form>
         <br>
-        <table id="mainPhysicianTable" style="border:solid black">
+        <table id="mainSearchPhysicianTable" style="border:solid black">
             <caption>Search Results</caption>
             <thead>
                 <tr style="border:solid black">
@@ -73,8 +73,29 @@
             </thead>
                 <tbody style="border:solid black">
                 <!--Use Handlebar templates to fill in cells with appropriate data from databse.-->
+                    <tr id="searchPhysicianTable" style="border:solid black">
+                        <!--Keep id values hidden-->
+                        <td id="searchEntryId" hidden style="border:solid black"></td>
+                        <td id="searchFirstName" style="border:solid black"></td>
+                        <td id="searchLastName" style="border:solid black"></td>
+                        <td id="searchSpecialty" style="border:solid black"></td>
+                    </tr>
+                </tbody>
+        </table>
+        <br>
+        <table id="mainPhysicianTable" style="border:solid black">
+            <caption>All Physicians</caption>
+            <thead>
+                <tr style="border:solid black">
+                    <th style="border:solid black">First Name</th>
+                    <th style="border:solid black">Last Name</th>
+                    <th style="border:solid black">Specialty</th>
+                </tr>
+            </thead>
+                <tbody style="border:solid black">
+                <!--Use Handlebar templates to fill in cells with appropriate data from databse.-->
                     {{#each results}}
-                    <tr class="physicianTable" id="physicianTable" style="border:solid black">
+                    <tr id="physicianTable" style="border:solid black">
                         <!--Keep id values hidden-->
                         <td class="entryId" id="entryId" hidden style="border:solid black">{{this.physicianID}}</td>
                         <td id="firstName" style="border:solid black">{{this.firstName}}</td>

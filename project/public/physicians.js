@@ -10,13 +10,14 @@ function getPhysicians(lastName, firstName, specialty) {
       if(req.status >= 200 && req.status < 400){
         var response = req.responseText;
         console.log(response);
+        console.log(response.lastName);
   
         // Constants to create DOMParser and grab response.
         const parser = new DOMParser();
         const newDoc = parser.parseFromString(response, 'text/html');
-        console.log(document.querySelectorAll(".physicianTable")[0].innerHTML + "test");
+        console.log(newDoc.getElementById("physicianTable").innerHTML + "test");
         // Use DOM to get just innerHTML of the table.
-        document.getElementsByClassName("physicianTable")[0].innerHTML = newDoc.getElementsByClassName("physicianTable")[0].innerHTML; 
+        document.getElementById("physicianTable").innerHTML = newDoc.getElementById("physicianTable").innerHTML; 
   
         // Add event listener for each delete button.
         document.querySelectorAll('.deleteRow').forEach(function(item) {
