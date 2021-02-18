@@ -1,6 +1,6 @@
 // Snippets of code used from course modules, W3 Schools and GeeksforGeeks.
 // Function to GET to root directory and retrieve current workouts.
-function getPhysicians(lastName, firstName, specialty) {
+function searchPhysicians(lastName, firstName, specialty) {
     var req = new XMLHttpRequest();
     
     req.open("GET", "http://flip1.engr.oregonstate.edu:9199/physicians/search?lastName=" + lastName + "&firstName=" + firstName + "&specialty=" + specialty, true);
@@ -18,26 +18,6 @@ function getPhysicians(lastName, firstName, specialty) {
         // Use DOM to get just innerHTML of the table.
         document.getElementById("searchPhysicianTable").innerHTML = newDoc.getElementById("searchPhysicianTable").innerHTML; 
   
-        // Add event listener for each delete button.
-        document.querySelectorAll('.deleteRow').forEach(function(item) {
-          item.addEventListener('click', function(event) {
-            deleteRow(item.value);
-            event.preventDefault();
-        })});
-  
-        // Add event listener for each edit button.
-        document.querySelectorAll('.editRow').forEach(function(item) {
-          item.addEventListener('click', function(event) {
-            editRow(item.value);
-            event.preventDefault();
-        })});
-  
-        // Add event listener for each update button.
-        document.querySelectorAll('.updateRow').forEach(function(item) {
-          item.addEventListener('click', function(event) {
-            updateRow(item.value);
-            event.preventDefault();
-        })});
       } else {
       console.log("Error in network request: " + req.statusText);
     }});
@@ -45,6 +25,31 @@ function getPhysicians(lastName, firstName, specialty) {
     req.send();
     event.preventDefault();
   };
+
+function getPhysicians() {
+
+    // Add event listener for each delete button.
+    document.querySelectorAll('.deleteRow').forEach(function(item) {
+    item.addEventListener('click', function(event) {
+        deleteRow(item.value);
+        event.preventDefault();
+    })});
+
+    // Add event listener for each edit button.
+    document.querySelectorAll('.editRow').forEach(function(item) {
+    item.addEventListener('click', function(event) {
+        editRow(item.value);
+        event.preventDefault();
+    })});
+
+    // Add event listener for each update button.
+    document.querySelectorAll('.updateRow').forEach(function(item) {
+    item.addEventListener('click', function(event) {
+        updateRow(item.value);
+        event.preventDefault();
+    })});
+};
+
 
 // Event listener for submit button for adding a new row.
 document.getElementById("addPhysician").addEventListener("click", function(event) {
@@ -65,6 +70,13 @@ document.getElementById("addPhysician").addEventListener("click", function(event
         if(req.status >= 200 && req.status < 400){
           var response = req.responseText;
           console.log(response);
+
+          // Constants to create DOMParser and grab response.
+          const parser = new DOMParser();
+          const newDoc = parser.parseFromString(response, 'text/html');
+
+          // Use DOM to get just innerHTML of the table.
+          document.getElementById("PhysicianTable").innerHTML = newDoc.getElementById("PhysicianTable").innerHTML; 
   
           // Get workout rows for database to display latest data on page.
           getPhysicians();
