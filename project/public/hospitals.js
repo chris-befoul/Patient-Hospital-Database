@@ -84,7 +84,7 @@ document.getElementById("addHospital").addEventListener("click", function(event)
     var state = document.getElementById("addState").value;
     var zip = document.getElementById("addZip").value;
 
-    if (lastName && firstName && specialty) {
+    if (hospitalName && city && state && zip) {
       req.open('POST', 'http://flip1.engr.oregonstate.edu:9199/hospitalName=" + hospitalName + "&city=" + city + "&state=" + state + "&zip=" + zip', true);
       req.setRequestHeader("Content-Type", "application/json");
       
