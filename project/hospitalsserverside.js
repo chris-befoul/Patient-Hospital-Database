@@ -9,7 +9,7 @@ module.exports = function(){
         var mysql = req.app.get('mysql');
 
         // Query to return everything from the table.
-        mysql.pool.query('SELECT hospitalID, hospitalName, city, state, zip FROM Physicians', function(err, rows, fields){
+        mysql.pool.query('SELECT hospitalID, hospitalName, city, state, zip FROM Hospitals', function(err, rows, fields){
           if(err){
             next(err);
             return;
@@ -26,7 +26,7 @@ module.exports = function(){
       var mysql = req.app.get('mysql');
 
       // Query to return everything from the table.
-      mysql.pool.query('SELECT hospitalID, hospitalName, city, state, zip FROM Physicians WHERE hospitalName=? AND city=? AND state=? AND zip=?',
+      mysql.pool.query('SELECT hospitalID, hospitalName, city, state, zip FROM Hospitals WHERE hospitalName=? AND city=? AND state=? AND zip=?',
       [req.query.hospitalName, req.query.city, req.query.state, req.query.zip], function(err, rows, fields){
         if(err){
           next(err);
