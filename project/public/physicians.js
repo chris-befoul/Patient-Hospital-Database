@@ -42,7 +42,7 @@ function getPhysicians() {
         const newDoc = parser.parseFromString(response, 'text/html');
 
         // Use DOM to get just innerHTML of the table.
-        document.getElementById("physicianTable").innerHTML = newDoc.getElementById("physicianTable").innerHTML;
+        document.getElementById("physicianTableBody").innerHTML = newDoc.getElementById("physicianTableBody").innerHTML;
         console.log("test" + newDoc.getElementById("physicianTable").innerHTML);
         // Add event listener for each delete button.
         document.querySelectorAll('.deleteRow').forEach(function(item) {
@@ -69,7 +69,7 @@ function getPhysicians() {
       console.log("Error in network request: " + req.statusText);
     }});
     req.send();
-
+    event.preventDefault();
 };
 
 
