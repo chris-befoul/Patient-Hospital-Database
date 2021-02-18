@@ -27,7 +27,6 @@ function searchPhysicians(lastName, firstName, specialty) {
   };
 
 function getPhysicians() {
-
     var req = new XMLHttpRequest();
     
     req.open("GET", "http://flip1.engr.oregonstate.edu:9199/physicians", true);
@@ -91,13 +90,6 @@ document.getElementById("addPhysician").addEventListener("click", function(event
         if(req.status >= 200 && req.status < 400){
           var response = req.responseText;
           console.log(response);
-
-          // Constants to create DOMParser and grab response.
-          const parser = new DOMParser();
-          const newDoc = parser.parseFromString(response, 'text/html');
-
-          // Use DOM to get just innerHTML of the table.
-          document.getElementById("physicianTable").innerHTML = newDoc.getElementById("physicianTable").innerHTML; 
   
           // Get workout rows for database to display latest data on page.
           getPhysicians();
