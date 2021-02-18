@@ -1,6 +1,6 @@
 // Snippets of code used from course modules, W3 Schools and GeeksforGeeks.
 // Function to GET to root directory and retrieve current workouts.
-function searchHospitals(hospitalsName, city, state, zip) {
+function searchHospitals(hospitalName, city, state, zip) {
     var req = new XMLHttpRequest();
     
     req.open("GET", "http://flip1.engr.oregonstate.edu:9199/hospitals/search?hospitalName=" + hospitalName + "&city=" + city + "&state=" + state + "&zip=" + zip, true);
@@ -14,7 +14,7 @@ function searchHospitals(hospitalsName, city, state, zip) {
         // Constants to create DOMParser and grab response.
         const parser = new DOMParser();
         const newDoc = parser.parseFromString(response, 'text/html');
-        console.log(document.getElementById("searchHospitalTable").innerHTML);
+
         // Use DOM to get just innerHTML of the table.
         document.getElementById("searchHospitalTable").innerHTML = newDoc.getElementById("searchHospitalTable").innerHTML; 
   
