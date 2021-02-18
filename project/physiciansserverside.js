@@ -16,7 +16,6 @@ module.exports = function(){
           }
           context.results = rows;
           context.search = [{physicianID:null, firstName:null, lastName:null, specialty:null}];
-          console.log(context.results);
           res.render('physicians', context);
           });
     });

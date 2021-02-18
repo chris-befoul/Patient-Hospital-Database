@@ -43,7 +43,7 @@ function getPhysicians() {
 
         // Use DOM to get just innerHTML of the table.
         document.getElementById("physicianTable").innerHTML = newDoc.getElementById("physicianTable").innerHTML;
-
+        console.log("test" + newDoc.getElementById("physicianTable").innerHTML);
         // Add event listener for each delete button.
         document.querySelectorAll('.deleteRow').forEach(function(item) {
           item.addEventListener('click', function(event) {
