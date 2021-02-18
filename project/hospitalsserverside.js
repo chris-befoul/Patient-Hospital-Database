@@ -42,9 +42,9 @@ module.exports = function(){
     router.post('/', function(req,res,next){
       var context = {};
       var mysql = req.app.get('mysql');
-      console.log(req.query);
+
       mysql.pool.query("INSERT INTO Hospitals (`hospitalName`, `city`, `state`, 'zip') VALUES (?, ?, ?, ?)", 
-      [req.query.hospitalsName, req.query.city, req.query.state, req.query.zip], function(err, result) {
+      [req.query.hospitalName, req.query.city, req.query.state, req.query.zip], function(err, result) {
         if(err){
           next(err);
           return;
