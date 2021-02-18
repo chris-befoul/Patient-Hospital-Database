@@ -28,26 +28,47 @@ function searchPhysicians(lastName, firstName, specialty) {
 
 function getPhysicians() {
 
-    // Add event listener for each delete button.
-    document.querySelectorAll('.deleteRow').forEach(function(item) {
-    item.addEventListener('click', function(event) {
-        deleteRow(item.value);
-        event.preventDefault();
-    })});
+    var req = new XMLHttpRequest();
+    
+    req.open("GET", "http://flip1.engr.oregonstate.edu:9199/physicians", true);
+    req.setRequestHeader("Content-Type", "application/json");
 
-    // Add event listener for each edit button.
-    document.querySelectorAll('.editRow').forEach(function(item) {
-    item.addEventListener('click', function(event) {
-        editRow(item.value);
-        event.preventDefault();
-    })});
+    req.addEventListener('load',function(){
+      if(req.status >= 200 && req.status < 400){
+        var response = req.responseText;
+        console.log(response);
+  
+        // Constants to create DOMParser and grab response.
+        const parser = new DOMParser();
+        const newDoc = parser.parseFromString(response, 'text/html');
 
-    // Add event listener for each update button.
-    document.querySelectorAll('.updateRow').forEach(function(item) {
-    item.addEventListener('click', function(event) {
-        updateRow(item.value);
-        event.preventDefault();
-    })});
+        // Use DOM to get just innerHTML of the table.
+        document.getElementById("physicianTable").innerHTML = newDoc.getElementById("physicianTable").innerHTML;
+
+        // Add event listener for each delete button.
+        document.querySelectorAll('.deleteRow').forEach(function(item) {
+          item.addEventListener('click', function(event) {
+          deleteRow(item.value);
+          event.preventDefault();
+        })});
+
+        // Add event listener for each edit button.
+        document.querySelectorAll('.editRow').forEach(function(item) {
+        item.addEventListener('click', function(event) {
+          editRow(item.value);
+          event.preventDefault();
+        })});
+
+        // Add event listener for each update button.
+        document.querySelectorAll('.updateRow').forEach(function(item) {
+        item.addEventListener('click', function(event) {
+          updateRow(item.value);
+          event.preventDefault();
+        })});
+  
+      } else {
+      console.log("Error in network request: " + req.statusText);
+    }});
 };
 
 
