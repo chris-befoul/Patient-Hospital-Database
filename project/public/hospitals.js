@@ -120,7 +120,7 @@ document.getElementById("searchHospital").addEventListener("click", function(eve
     var state = document.getElementById("searchState").value;
     var zip = document.getElementById("searchZip").value;
 
-    searchPhysicians(hospitalName, city, state, zip);
+    searchHospitals(hospitalName, city, state, zip);
     
   });
   
@@ -138,7 +138,7 @@ function deleteRow(idVal) {
         console.log(response);
   
         // Get workout rows for database to display latest data on page.
-        getPhysicians();
+        getHospitals();
       
       } else {
       console.log("Error in network request: " + req.statusText);
