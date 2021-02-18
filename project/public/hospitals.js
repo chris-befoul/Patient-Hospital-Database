@@ -14,7 +14,7 @@ function searchHospitals(hospitalsName, city, state, zip) {
         // Constants to create DOMParser and grab response.
         const parser = new DOMParser();
         const newDoc = parser.parseFromString(response, 'text/html');
-
+        console.log(document.getElementById("searchHospitalTable").innerHTML);
         // Use DOM to get just innerHTML of the table.
         document.getElementById("searchHospitalTable").innerHTML = newDoc.getElementById("searchHospitalTable").innerHTML; 
   
