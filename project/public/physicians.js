@@ -76,7 +76,7 @@ document.getElementById("addPhysician").addEventListener("click", function(event
           const newDoc = parser.parseFromString(response, 'text/html');
 
           // Use DOM to get just innerHTML of the table.
-          document.getElementById("PhysicianTable").innerHTML = newDoc.getElementById("PhysicianTable").innerHTML; 
+          document.getElementById("physicianTable").innerHTML = newDoc.getElementById("physicianTable").innerHTML; 
   
           // Get workout rows for database to display latest data on page.
           getPhysicians();
