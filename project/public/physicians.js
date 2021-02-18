@@ -14,7 +14,7 @@ function searchPhysicians(lastName, firstName, specialty) {
         // Constants to create DOMParser and grab response.
         const parser = new DOMParser();
         const newDoc = parser.parseFromString(response, 'text/html');
-
+        console.log("testnow");
         // Use DOM to get just innerHTML of the table.
         document.getElementById("searchPhysicianTable").innerHTML = newDoc.getElementById("searchPhysicianTable").innerHTML; 
   
