@@ -85,7 +85,7 @@ document.getElementById("addHospital").addEventListener("click", function(event)
     var zip = document.getElementById("addZip").value;
 
     if (hospitalName && city && state && zip) {
-      req.open('POST', 'http://flip1.engr.oregonstate.edu:9199/hospitals?hospitalName=" + hospitalName + "&city=" + city + "&state=" + state + "&zip=" + zip', true);
+      req.open('POST', 'http://flip1.engr.oregonstate.edu:9199/hospitals?hospitalName=' + hospitalName + "&city=" + city + "&state=" + state + "&zip=" + zip, true);
       req.setRequestHeader("Content-Type", "application/json");
       
       // Event listener that fires when entire page is loaded, and triggers function.
