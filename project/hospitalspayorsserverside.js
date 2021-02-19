@@ -16,7 +16,7 @@ module.exports = function(){
           }
           context.results = rows;
           context.search = [{hospitalID:null, payorID:null}];
-          res.render('hospitalsandpayors', context);
+          res.render('hospitalspayors', context);
           });
     });
 
@@ -34,7 +34,7 @@ module.exports = function(){
         }
         context.search = rows;
         console.log(context.search);
-        res.render('hospitalsandpayors', context);
+        res.render('hospitalspayors', context);
         });
     });
 
@@ -50,7 +50,7 @@ module.exports = function(){
           return;
         }
         context.results = "Inserted id " + result.insertId;
-        res.render('hospitals', context);
+        res.render('hospitalspayors', context);
         });
     });
 
