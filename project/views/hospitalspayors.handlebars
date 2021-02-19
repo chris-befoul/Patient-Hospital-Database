@@ -7,7 +7,7 @@
         <title>Patient Information Portal for Healthcare Administration</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="hospitalsandpayors.css">
+        <link rel="stylesheet" href="hospitalspayors.css">
     </head>
     <body>
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -27,23 +27,23 @@
             <fieldset>
                 <legend>Add Hospital and Payor Relationship</legend>
                 <br>
-                <label for="PayorName">Hospital: </label>
-                <select id="HospitalName" name="HospitalName">
+                <label for="addHospitalID">Hospital: </label>
+                <select id="addHospitalID" name="addHospitalID">
                     <option value="NULL">None</option>
                     {{#each hospitalName}}
                         <option>{{this}}</option>
                     {{/each}}
                 </select>
                 <br>
-                <label for="PayorName">Payor: </label>
-                <select id="PayorName" name="PayorName">
+                <label for="addPayorID">Payor: </label>
+                <select id="addPayorID" name="addPayorID">
                     <option value="NULL">None</option>
                     {{#each payorName}}
                         <option>{{this}}</option>
                     {{/each}}
                 </select>
                 <br>
-                <input type="submit" name="AddRelationship" value="Add Relationship"/>
+                <input type="submit" name="addRelationship" id="addRelationship" value="Add Relationship"/>
             </fieldset>
         </form>
         <br>
@@ -52,18 +52,19 @@
                 <legend>Hospital and Payor Relationship Search</legend>
                 <br>
                 <label>Hospital ID:
-                    <input type="text" name="SearchHospitalID" size="30" required>
+                    <input type="text" name="searchHospitalID" id="searchHospitalID" size="30" required>
                 </label>
                 <br>
                 <label>Payor ID:
-                    <input type="text" name="SearchPayorID" size="30" required>
+                    <input type="text" name="searchPayorID" id="searchPayorID" size="30" required>
                 </label>
                 <br>
-                <input type="submit" name="HospitalPayorSearch" value="Search Relationship"/>
+                <input type="submit" name="searchRelationship" id="searchRelationship" value="Search Relationship"/>
             </fieldset>
         </form>
         <br>
-        <table id="mainHospitalPayorTable" style="border:solid black">
+        <br>
+        <table id="mainSearchHospitalPayorTable" style="border:solid black">
             <caption>Search Results</caption>
             <thead>
                 <tr style="border:solid black">
@@ -73,17 +74,34 @@
             </thead>
                 <tbody style="border:solid black">
                 <!--Use Handlebar templates to fill in cells with appropriate data from databse.-->
-                <tr id="hospitalPayorTable" style="border:solid black">
-                    <!--Keep id values hidden-->
-                    <td class="entryId" id="entryId" hidden style="border:solid black">Test</td>
-                    <td id="entryHospitalID" style="border:solid black">Test Hospital ID</td>
-                    <td id="entryPayorID" style="border:solid black">Test Payor ID</td>
-                    <td><button class="deleteRow" type="button">Delete</button></td>
-                    <td><button class="editRow" type="button">Edit</button></td>
-                    <td><button class="updateRow" type="button">Update</button></td>
-                </tr>
-            </tbody>
+                    {{#each search}}
+                    <tr id="searchHospitalPayorTable" style="border:solid black">
+                        <!--Keep id values hidden-->
+                        <td id="searchHospitalID" style="border:solid black">{{this.hospitalID}}</td>
+                        <td id="searchPayorID" style="border:solid black">{{this.payorID}}</td>
+                    </tr>
+                    {{/each}}
+                </tbody>
         </table>
-        <script src="hospitalsandpayors.js" async defer></script>
+        <br>
+        <table id="mainHospitalPayorTable" style="border:solid black">
+            <caption>All Hospital and Payor Relationships</caption>
+            <thead>
+                <tr style="border:solid black">
+                    <th style="border:solid black">Hospital ID</th>
+                    <th style="border:solid black">Payor ID</th>
+                </tr>
+            </thead>
+                <tbody id="hospitalPayorTableBody" style="border:solid black">
+                <!--Use Handlebar templates to fill in cells with appropriate data from databse.-->
+                    {{#each results}}
+                    <tr id="hospitalPayorTable" style="border:solid black">
+                        <!--Keep id values hidden-->
+                        <td id="hospitalID" style="border:solid black">{{this.hospitalID}}</td>
+                        <td id="payorID" style="border:solid black">{{this.payorID}}</td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+        <script src="hospitalspayors.js" async defer></script>
     </body>
 </html>

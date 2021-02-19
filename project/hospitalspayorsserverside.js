@@ -9,14 +9,14 @@ module.exports = function(){
         var mysql = req.app.get('mysql');
 
         // Query to return everything from the table.
-        mysql.pool.query('SELECT hospitalID, hospitalName, city, state, zip FROM Hospitals', function(err, rows, fields){
+        mysql.pool.query('SELECT hospitalID, payorID FROM Hospitals_Payors', function(err, rows, fields){
           if(err){
             next(err);
             return;
           }
           context.results = rows;
-          context.search = [{hospitalID:null, hospitalName:null, city:null, state:null, zip:null}];
-          res.render('hospitals', context);
+          context.search = [{hospitalID:null, payorID:null}];
+          res.render('hospitalsandpayors', context);
           });
     });
 
@@ -26,15 +26,15 @@ module.exports = function(){
       var mysql = req.app.get('mysql');
 
       // Query to return everything from the table.
-      mysql.pool.query('SELECT hospitalID, hospitalName, city, state, zip FROM Hospitals WHERE hospitalName=? AND city=? AND state=? AND zip=?',
-      [req.query.hospitalName, req.query.city, req.query.state, req.query.zip], function(err, rows, fields){
+      mysql.pool.query('SELECT hospitalID, payorID FROM Hospitals_Payors WHERE hospitalID=? AND payorID=?',
+      [req.query.hospitalID, req.query.payorID], function(err, rows, fields){
         if(err){
           next(err);
           return;
         }
         context.search = rows;
         console.log(context.search);
-        res.render('hospitals', context);
+        res.render('hospitalsandpayors', context);
         });
     });
 
@@ -43,8 +43,8 @@ module.exports = function(){
       var context = {};
       var mysql = req.app.get('mysql');
 
-      mysql.pool.query("INSERT INTO Hospitals (`hospitalName`, `city`, `state`, zip) VALUES (?, ?, ?, ?)", 
-      [req.query.hospitalName, req.query.city, req.query.state, req.query.zip], function(err, result) {
+      mysql.pool.query("INSERT INTO Hospitals_Payors (hospitalID, payorID) VALUES (?, ?)", 
+      [req.query.hospitalID, req.query.payorID], function(err, result) {
         if(err){
           next(err);
           return;

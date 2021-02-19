@@ -37,9 +37,7 @@ app.use('/physicians', require('./physiciansserverside.js'));
 
 app.use('/hospitals', require('./hospitalsserverside.js'));
 
-app.get('/hospitalsandpayors', function(req, res, next){
-  res.render('hospitalsandpayors');
-});
+app.use('/hospitalspayors', require('./hospitalspayorsserverside.js'));
 
 app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
