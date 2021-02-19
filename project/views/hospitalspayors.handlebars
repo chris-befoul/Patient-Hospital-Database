@@ -30,16 +30,16 @@
                 <label for="addHospitalID">Hospital: </label>
                 <select id="addHospitalID" name="addHospitalID">
                     <option value="NULL">None</option>
-                    {{#each hospitalName}}
-                        <option>{{this}}</option>
+                    {{#each results}}
+                        <option>{{this.hospitalID}}</option>
                     {{/each}}
                 </select>
                 <br>
                 <label for="addPayorID">Payor: </label>
                 <select id="addPayorID" name="addPayorID">
                     <option value="NULL">None</option>
-                    {{#each payorName}}
-                        <option>{{this}}</option>
+                    {{#each results}}
+                        <option>{{this.payorID}}</option>
                     {{/each}}
                 </select>
                 <br>
