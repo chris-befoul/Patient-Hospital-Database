@@ -1,6 +1,6 @@
 // Snippets of code used from course modules, W3 Schools and GeeksforGeeks.
 // Function to GET to root directory and retrieve current workouts.
-function searchHospitalsPayors(hospitalName, city, state, zip) {
+function searchHospitalsPayors(hospitalID, payorID) {
     var req = new XMLHttpRequest();
     
     req.open("GET", "http://flip1.engr.oregonstate.edu:9199/hospitalspayors/search?hospitalID=" + hospitalID + "&payorID=" + payorID, true);
