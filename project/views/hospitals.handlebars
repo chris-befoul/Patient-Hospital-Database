@@ -28,20 +28,21 @@
                 <legend>Add Hospital</legend>
                 <br>
                 <label>Hospital Name:
-                    <input type="text" name="AddName" size="30" required>
+                    <input type="text" name="addName" id="addName" size="30" required>
                 </label>
                 <br>
                 <label>City:
-                <input type="text" name="AddCity" size="30" required>
+                <input type="text" name="addCity" id="addCity" size="30" required>
                 </label>
                 <br>
                 <label>State:
-                    <input type="text" name="AddState" size="30" required>
+                    <input type="text" name="addState" id="addState" size="30" required>
                 </label>
                 <br>
                 <label>Zip:
-                    <input type="number" name="AddZip" size="30" required>
+                    <input type="number" name="addZip" id="addZip" size="30" required>
                 </label>
+                <input type="submit" name="addHospital" id="addHospital" value="Add Hospital"/>
             </fieldset>
         </form>
         <br>
@@ -50,30 +51,30 @@
                 <legend>Hospital Search</legend>
                 <br>
                 <label>Hospital Name:
-                    <input type="text" name="SearchName" size="30" required>
+                    <input type="text" name="searchName" id="searchName" size="30" required>
                 </label>
                 <br>
                 <label>City:
-                    <input type="text" name="SearchCity" size="30" required>
+                    <input type="text" name="searchCity" id="searchCity" size="30" required>
                 </label>
                 <br>
                 <label>State:
-                    <input type="text" name="SearchState" size="30" required>
+                    <input type="text" name="searchState" id="searchState" size="30" required>
                 </label>
                 <br>
                 <label>Zip:
-                    <input type="number" name="SearchZip" size="30" required>
+                    <input type="number" name="searchZip" id="searchZip" size="30" required>
                 </label>
                 <br>
-                <input type="submit" name="HospitalSearch" value="Search"/>
+                <input type="submit" name="searchHospital" id="searchHospital" value="Search Hospital"/>
             </fieldset>
         </form>
         <br>
-        <table id="mainHospitalTable" style="border:solid black">
+        <table id="mainSearchHospitalTable" style="border:solid black">
             <caption>Search Results</caption>
             <thead>
                 <tr style="border:solid black">
-                    <th style="border:solid black">Name</th>
+                    <th style="border:solid black">Hospital Name</th>
                     <th style="border:solid black">City</th>
                     <th style="border:solid black">State</th>
                     <th style="border:solid black">Zip</th>
@@ -81,19 +82,45 @@
             </thead>
                 <tbody style="border:solid black">
                 <!--Use Handlebar templates to fill in cells with appropriate data from databse.-->
-                <tr id="hospitalTable" style="border:solid black">
-                    <!--Keep id values hidden-->
-                    <td class="entryId" id="entryId" hidden style="border:solid black">Test</td>
-                    <td id="entryName" style="border:solid black">Test Hospital</td>
-                    <td id="entryCity" style="border:solid black">Baltimore</td>
-                    <td id="entryState" style="border:solid black">Maryland</td>
-                    <td id="entryZip" style="border:solid black">21111</td>
-                    <td><button class="deleteRow" type="button"></button>Delete</button></td>
-                    <td><button class="editRow" type="button"></button>Edit</button></td>
-                    <td><button class="updateRow" type="button"></button>Update</button></td>
-                </tr>
-            </tbody>
+                    {{#each search}}
+                    <tr id="searchHospitalTable" style="border:solid black">
+                        <!--Keep id values hidden-->
+                        <td id="searchEntryId" hidden style="border:solid black">{{this.hospitalID}}</td>
+                        <td id="searchHospitalName" style="border:solid black">{{this.hospitalName}}</td>
+                        <td id="searchCity" style="border:solid black">{{this.city}}</td>
+                        <td id="searchState" style="border:solid black">{{this.state}}</td>
+                        <td id="searchZip" style="border:solid black">{{this.zip}}</td>
+                    </tr>
+                    {{/each}}
+                </tbody>
         </table>
+        <br>
+        <table id="mainHospitalTable" style="border:solid black">
+            <caption>All Hospitals</caption>
+            <thead>
+                <tr style="border:solid black">
+                    <th style="border:solid black">Hospital Name</th>
+                    <th style="border:solid black">City</th>
+                    <th style="border:solid black">State</th>
+                    <th style="border:solid black">Zip</th>
+                </tr>
+            </thead>
+                <tbody id="hospitalTableBody" style="border:solid black">
+                <!--Use Handlebar templates to fill in cells with appropriate data from databse.-->
+                    {{#each results}}
+                    <tr id="hospitalTable" style="border:solid black">
+                        <!--Keep id values hidden-->
+                        <td class="entryId" id="entryId" hidden style="border:solid black">{{this.hospitalID}}</td>
+                        <td id="hospitalName" style="border:solid black">{{this.hospitalName}}</td>
+                        <td id="city" style="border:solid black">{{this.city}}</td>
+                        <td id="state" style="border:solid black">{{this.state}}</td>
+                        <td id="zip" style="border:solid black">{{this.zip}}</td>
+                        <td><button class="deleteRow" type="button" value={{this.hospitalID}}>Delete</button></td>
+                        <td><button class="editRow" type="button" value={{this.hospitalID}}>Edit</button></td>
+                        <td><button class="updateRow" type="button" value={{this.hospitalID}}>Update</button></td>
+                    </tr>
+                    {{/each}}
+                </tbody>
         <script src="hospitals.js" async defer></script>
     </body>
 </html>

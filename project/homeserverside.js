@@ -2,9 +2,8 @@
 // Import express and handlebars.
 var express = require('express');
 var handlebars = require('express-handlebars').create({defaultLayout: 'main'});
-var mysql = require('./Dbase');
-
 var app = express();
+var mysql = require('./dbcon.js');
 
 app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars');
@@ -15,7 +14,8 @@ var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.use(express.static('public'));
-app.set('port', 9919);
+app.set('port', process.argv[2]);
+app.set('mysql', mysql);
 
 app.get('/', function(req, res, next){
   res.render('home');
@@ -141,17 +141,16 @@ app.post('/payors',function(req,res,next) {
   }
 });
 
+app.use('/physicians', require('./physiciansserverside.js'));
 
-app.get('/physicians', function(req, res, next){
-  res.render('physicians');
-});
+app.use('/hospitals', require('./hospitalsserverside.js'));
 
-app.get('/hospitals', function(req, res, next){
-  res.render('hospitals');
-});
+app.use('/hospitalspayors', require('./hospitalspayorsserverside.js'));
 
-app.get('/hospitalsandpayors', function(req, res, next){
-  res.render('hospitalsandpayors');
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  next();      
 });
 
 app.use(function(req,res){
