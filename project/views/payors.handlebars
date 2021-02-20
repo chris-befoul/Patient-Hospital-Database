@@ -23,41 +23,45 @@
             <li class="menuItem"><a href="/payors">Payors</a></li>
             <li class="menuItem"><a href="/hospitalsandpayors">Hospitals and Payors Relationship</a></li>
           </ul>
-    <form name="AddPayor">
-        <fieldset>
-            <legend>Add Payor</legend>
-            <br>
-            <label>Company Name:
-                <input type="text" name="company" size="30">
-            </label>
-            <br>
-            <label>City:
-                <input type="text" name="PayCity" size="30">
-            </label>
-            <br>
-            <label>State:
-                <input type="text" name="PayState" size="30">
-            </label>
-            <br>
-            <label>Zip Code:
-                <input type="number" name="PayZip" size="30">
-            </label>
-            <br>
-            <input type="submit" name="AddPay" value="Add Payor"/>
-        </fieldset>
-    </form>
-    <br>
-    <form name="SearchPayor">
-        <fieldset>
-            <legend>Search Payor</legend>
-            <br>
-            <label>Company Name:
-                <input type="text" name="SearchCompany" size="30">
-            </label>
-            <br>
-            <input type="submit" name="SearchPay" value="Search Payor"/>
-        </fieldset>
-    </form>
+        <form action="/payors" method="post" name="Add" onsubmit="alert('Payor has been added to Hardison-Kim Hospital Database')">
+            <fieldset>
+                <legend>Add Payor</legend>
+                <br>
+                <label>Company Name:
+                    <input type="text" name="company" size="30">
+                </label>
+                <br>
+                <label>City:
+                    <input type="text" name="PayCity" size="30">
+                </label>
+                <br>
+                <label>State:
+                    <input type="text" name="PayState" size="30">
+                </label>
+                <br>
+                <label>Zip Code:
+                    <input type="number" name="PayZip" size="30">
+                </label>
+                <input type="submit" name="AddPay" value="Add"/>
+            </fieldset>
+        </form>
+        <br>
+        <form name="SearchPayor">
+            <fieldset>
+                <legend>Search Payor</legend>
+                <br>
+                <label>Company Name:
+                    <input type="text" name="SearchCompany" id="SearchCompany" size="30" required>
+                </label>
+                <br>
+                <br>
+                <button name="searchPay" id="searchPay" value="searchPay">Search</button>
+                <br>
+                <br>
+                <button name="clearPay" id="clearPay" value="clear">Clear Search Results</button>
+            </fieldset>
+        </form>
+        {{!
         <table id="PayorsTable" type="text/x-handlebars-template">
             <caption>Search Results</caption>
             <thead>
@@ -80,6 +84,7 @@
                     <td><button class="updateRow" type="button">Update</button></td>
                 </tr>
         </table>
-        <script src="payors.js" async defer></script>
+        }}
+        <script src="/payors.js"></script>
     </body>
 </html>
