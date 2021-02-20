@@ -21,9 +21,9 @@
             <li class="menuItem"><a href="/physicians">Physicians</a></li>
             <li class="menuItem"><a href="/hospitals">Hospitals</a></li>
             <li class="menuItem"><a href="/payors">Payors</a></li>
-            <li class="menuItem"><a href="/hospitalsandpayors">Hospitals and Payors Relationship</a></li>
+            <li class="menuItem"><a href="/hospitalspayors">Hospitals and Payors Relationship</a></li>
           </ul>
-        <form name="Add">
+        <form action="/patients" method="post" name="Add" onsubmit="alert('Patient has been added to Hardison-Kim Hospital Database')">
             <fieldset>
                 <legend>Add Patient</legend>
                 <br>
@@ -74,8 +74,8 @@
                 <label for="PayName">Payor: </label>
                 <select id="PayName" name="PayName">
                     <option value="NULL">None</option>
-                    {{#each Payor_name}}
-                        <option>{{this}}</option>
+                    {{#each results}}
+                        <option value="{{this.company}}">{{this.company}}</option>
                     {{/each}}
                 </select>
                 <br>
@@ -87,23 +87,27 @@
             <fieldset>
                 <legend>Patient Search</legend>
                 <br>
-                <label>Last Name:
-                    <input type="text" name="SearchLast" size="30" required>
+                <label>First Name:
+                    <input type="text" name="searchFirst" id="searchFirst" size="30" required>
                 </label>
                 <br>
-                <label>First Name:
-                    <input type="text" name="SearchFirst" size="30" required>
+                <label>Last Name:
+                    <input type="text" name="searchLast" id="searchLast" size="30" required>
                 </label>
                 <br>
                 <label>Date of Birth:
-                    <input type="date" name="SearchDob" size="30" required>
+                    <input type="date" name="searchDOB" id="searchDOB" size="30" required>
                 </label>
                 <br>
-                <input type="submit" name="PatSearch" value="Search Patient"/>
+                <button name="searchPat" id="searchPat" value="searchPat">Search</button>
+                <br>
+                <br>
+                <button name="clear" id="clear" value="clear">Clear Search Results</button>
             </fieldset>
         </form>
         <br>
         <br>
+        {{!
         <table id="PatientsTable" type="text/x-handlebars-template">
             <caption>Search Results</caption>
             <thead>
@@ -136,6 +140,7 @@
                     <td><button class="updateRow" type="button">Update</button></td>
                 </tr>
         </table>
-        <script src="patients.js" async defer></script>
+        }}
+        <script src="/patients.js"></script>
     </body>
 </html>
