@@ -101,6 +101,47 @@ app.get('/payors', function(req, res, next){
   res.render('payors');
 });
 
+app.post('/payors',function(req,res,next) {
+  var context = {};
+  if (req.body['AddPay']) {
+    var a = req.body.company
+    var b = req.body.PayCity
+    var c = req.body.PayState
+    var d = req.body.PayZip
+    mysql.pool.query("INSERT INTO Payors (`company`, `city`, `state`, `zip`) VALUES (?, ?, ?, ?)", [a, b, c, d], function (err, result) {
+      if (err) {
+        next(err);
+        return;
+      }
+      context.results = result;
+      res.render('payors');
+    })
+  }
+
+  if (req.body.submit === 'all'){
+    mysql.pool.query('SELECT * FROM Payors', function (err, rows, fields) {
+      if (err) {
+        next(err);
+        return;
+      }
+      context.results = rows;
+      res.send(context)
+    })
+  }
+
+  if (req.body.submit === 'searchPay'){
+    mysql.pool.query('SELECT * FROM Payors WHERE company = ?', [req.body.company],  function (err, rows, fields) {
+      if (err) {
+        next(err);
+        return;
+      }
+      context.results = rows;
+      res.send(context)
+    })
+  }
+});
+
+
 app.get('/physicians', function(req, res, next){
   res.render('physicians');
 });

@@ -1,9 +1,9 @@
-initTable()
-document.addEventListener('DOMContentLoaded', searchTable);
-document.addEventListener('DOMContentLoaded', clearSearch);
+initPatTable()
+document.addEventListener('DOMContentLoaded', searchPatTable);
+document.addEventListener('DOMContentLoaded', clearPatSearch);
 
 
-function buildTable(data){
+function buildPatTable(data){
     var table = document.createElement("table");
     table.setAttribute("id", "PatientTable");
     var headrow = document.createElement("tr");
@@ -127,7 +127,7 @@ function buildTable(data){
             req.open('POST', "http://localhost:8364/patients",true);
             req.setRequestHeader('Content-type', "application/json");
             req.send(JSON.stringify(curID));
-            initTable()
+            initPatTable()
             event.preventDefault();
         })
          */
@@ -157,7 +157,7 @@ function buildTable(data){
     return table;
 }
 
-function searchTable() {
+function searchPatTable() {
     document.getElementById('searchPat').addEventListener("click", function (event) {
         var form = {
             submit: document.getElementById('searchPat').value,
@@ -170,7 +170,7 @@ function searchTable() {
         req.addEventListener("load", function () {
             var response = req.responseText;
             response = JSON.parse(response);
-            var updatedTable = buildTable(response);
+            var updatedTable = buildPatTable(response);
             if (document.body.contains(document.getElementById("PatientTable"))) {
                 document.body.removeChild(document.getElementById("PatientTable"));
                 updatedTable.id = "PatientTable";
@@ -187,21 +187,21 @@ function searchTable() {
     });
 }
 
-function clearSearch() {
+function clearPatSearch() {
     document.getElementById('clear').addEventListener("click", function (event) {
-        initTable();
+        initPatTable();
         event.preventDefault();
     });
 }
 
-function initTable() {
+function initPatTable() {
     var req = new XMLHttpRequest();
     const request = {submit: "all"};
 
     req.addEventListener("load", function(){
         var response = req.responseText;
         response = JSON.parse(response);
-        var updatedTable = buildTable(response);
+        var updatedTable = buildPatTable(response);
         if (document.body.contains(document.getElementById("PatientTable"))){
             document.body.removeChild(document.getElementById("PatientTable"));
             updatedTable.id = "PatientTable";
