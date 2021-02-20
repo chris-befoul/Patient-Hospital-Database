@@ -73,21 +73,6 @@
             </thead>
                 <tbody style="border:solid black">
                 <!--Use Handlebar templates to fill in cells with appropriate data from databse.-->
-<<<<<<< HEAD
-                {{#each entries}}
-                <tr id="physicianTable" style="border:solid black">
-                    <!--Keep id values hidden-->
-                    <td class="entryId" id="entryId" hidden style="border:solid black">{{this.id}}</td>
-                    <td id="entryFName" style="border:solid black">{{this.firstName}}</td>
-                    <td id="entryLName" style="border:solid black">{{this.lastName}}</td>
-                    <td id="entrySpecialty" style="border:solid black">{{this.specialty}}</td>
-                    <td><button class="deleteRow" type="button">Delete</button></td>
-                    <td><button class="editRow" type="button">Edit</button></td>
-                    <td><button class="updateRow" type="button">Update</button></td>
-                </tr>
-                {{/each}}    
-            </tbody>
-=======
                     {{#each search}}
                     <tr id="searchPhysicianTable" style="border:solid black">
                         <!--Keep id values hidden-->
@@ -124,7 +109,6 @@
                     </tr>
                     {{/each}}
                 </tbody>
->>>>>>> b2fed7fd10f5fcac5fbc7a13bc82e06e9fc82f6a
         </table>
         <script src="physicians.js" async defer></script>
     </body>
