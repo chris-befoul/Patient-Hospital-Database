@@ -124,7 +124,7 @@ function buildPatTable(data){
                 } else {
                     console.log("Error in network request: " + req.statusText);
                 }});
-            req.open('POST', "http://localhost:8364/patients",true);
+            req.open('POST', "http://flip1.engr.oregonstate.edu:9199/patients",true);
             req.setRequestHeader('Content-type', "application/json");
             req.send(JSON.stringify(curID));
             initPatTable()
@@ -180,7 +180,7 @@ function searchPatTable() {
                 document.body.appendChild(updatedTable);
             }
         });
-        req.open("POST", "http://localhost:8364/patients", true);
+        req.open("POST", "http://flip1.engr.oregonstate.edu:9199/patients", true);
         req.setRequestHeader('Content-type', "application/json");
         req.send(JSON.stringify(form));
         event.preventDefault();
@@ -211,7 +211,7 @@ function initPatTable() {
             document.body.appendChild(updatedTable);
         }
     });
-    req.open("POST", "http://localhost:8364/patients", true);
+    req.open("POST", "http://flip1.engr.oregonstate.edu:9199/patients", true);
     req.setRequestHeader('Content-type', "application/json");
     req.send(JSON.stringify(request));
 }
