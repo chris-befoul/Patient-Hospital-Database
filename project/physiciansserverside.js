@@ -2,23 +2,6 @@ module.exports = function(){
     var express = require('express');
     var router = express.Router();
 
-<<<<<<< HEAD
-    // POST route to insert new entry into table.
-    app.post('/', function(req,res,next){
-        var context = {};
-    
-        pool.query("INSERT INTO Physicians (`lastName`, `firstName`, `specialty`) VALUES (?, ?, ?)", 
-        [req.query.lastName, req.query.firstName, req.query.specialty], function(err, result) {
-        if(err){
-            next(err);
-            return;
-        }
-        context.results = "Inserted id " + result.insertId;
-        res.render('physicians', context);
-        })
-    });
-=======
-
     // GET route retrieving physicians page.
     router.get('/', function(req, res, next) {
         var context = {};
@@ -72,4 +55,3 @@ module.exports = function(){
 
     return router;
 }();
->>>>>>> b2fed7fd10f5fcac5fbc7a13bc82e06e9fc82f6a
