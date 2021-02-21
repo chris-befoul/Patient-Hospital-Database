@@ -66,7 +66,7 @@ function buildPayTable(data){
                 } else {
                     console.log("Error in network request: " + req.statusText);
                 }});
-            req.open('POST', "http://flip1.engr.oregonstate.edu:9199/payors",true);
+            req.open('POST', "http://flip1.engr.oregonstate.edu:9919/payors",true);
             req.setRequestHeader('Content-type', "application/json");
             req.send(JSON.stringify(curID));
             initPayTable()
@@ -121,7 +121,7 @@ function searchPayTable() {
                 document.body.appendChild(updatedTable);
             }
         });
-        req.open('POST', "http://flip1.engr.oregonstate.edu:9199/payors", true);
+        req.open('POST', "http://flip1.engr.oregonstate.edu:9919/payors", true);
         req.setRequestHeader('Content-type', "application/json");
         req.send(JSON.stringify(form));
         event.preventDefault();
@@ -152,7 +152,7 @@ function initPayTable() {
             document.body.appendChild(updatedTable);
         }
     });
-    req.open("POST", "http://flip1.engr.oregonstate.edu:9199/payors", true);
+    req.open("POST", "http://flip1.engr.oregonstate.edu:9919/payors", true);
     req.setRequestHeader('Content-type', "application/json");
     req.send(JSON.stringify(request));
 }

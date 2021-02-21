@@ -3,7 +3,7 @@
 function searchHospitals(hospitalName, city, state, zip) {
     var req = new XMLHttpRequest();
     
-    req.open("GET", "http://flip1.engr.oregonstate.edu:9199/hospitals/search?hospitalName=" + hospitalName + "&city=" + city + "&state=" + state + "&zip=" + zip, true);
+    req.open("GET", "http://flip1.engr.oregonstate.edu:9919/hospitals/search?hospitalName=" + hospitalName + "&city=" + city + "&state=" + state + "&zip=" + zip, true);
     req.setRequestHeader("Content-Type", "application/json");
 
     req.addEventListener('load',function(){
@@ -29,7 +29,7 @@ function searchHospitals(hospitalName, city, state, zip) {
 function getHospitals() {
     var req = new XMLHttpRequest();
     
-    req.open("GET", "http://flip1.engr.oregonstate.edu:9199/hospitals", true);
+    req.open("GET", "http://flip1.engr.oregonstate.edu:9919/hospitals", true);
     req.setRequestHeader("Content-Type", "application/json");
 
     req.addEventListener('load',function(){
@@ -85,7 +85,7 @@ document.getElementById("addHospital").addEventListener("click", function(event)
     var zip = document.getElementById("addZip").value;
 
     if (hospitalName && city && state && zip) {
-      req.open('POST', 'http://flip1.engr.oregonstate.edu:9199/hospitals?hospitalName=' + hospitalName + "&city=" + city + "&state=" + state + "&zip=" + zip, true);
+      req.open('POST', 'http://flip1.engr.oregonstate.edu:9919/hospitals?hospitalName=' + hospitalName + "&city=" + city + "&state=" + state + "&zip=" + zip, true);
       req.setRequestHeader("Content-Type", "application/json");
       
       // Event listener that fires when entire page is loaded, and triggers function.
@@ -129,7 +129,7 @@ function deleteRow(idVal) {
     var req = new XMLHttpRequest();
     var id = idVal;
 
-    req.open('GET', 'http://flip1.engr.oregonstate.edu:9199/hospitals?id=' + id, true);
+    req.open('GET', 'http://flip1.engr.oregonstate.edu:9919/hospitals?id=' + id, true);
       
     // Event listener that fires when entire page is loaded, and triggers function.
     req.addEventListener('load',function(){
@@ -158,7 +158,7 @@ function updateRow(idVal) {
     var firstName = table.rows[rowIndex].cells[2].innerHTML;
     var specialty = table.rows[rowIndex].cells[3].innerHTML;
 
-    req.open('POST', 'http://flip1.engr.oregonstate.edu:9199/update?id=' + id + "&lastName=" + lastName + "&firstName=" + firstName + "&specialty=" + specialty, true);
+    req.open('POST', 'http://flip1.engr.oregonstate.edu:9919/update?id=' + id + "&lastName=" + lastName + "&firstName=" + firstName + "&specialty=" + specialty, true);
 
     // Event listener that fires when entire page is loaded, and triggers function.
     req.addEventListener('load',function(){
