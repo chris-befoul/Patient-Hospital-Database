@@ -199,3 +199,5 @@ function findRow(idVal) {
         var rowIndex = i;
         return rowIndex;
 }}};
+
+getPhysicians();
