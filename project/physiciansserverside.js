@@ -58,7 +58,7 @@ module.exports = function(){
       var context = {};
       var mysql = req.app.get('mysql');
 
-      mysql.pool.query("DELETE FROM Physicians WHERE id=?", [req.query.id], function(err, result){
+      mysql.pool.query("DELETE FROM Physicians WHERE physicianID=?", [req.query.id], function(err, result){
         if(err){
           next(err);
           return;
