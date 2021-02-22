@@ -53,5 +53,20 @@ module.exports = function(){
         });
     });
 
+    // GET route to delete a table row based on id.
+    router.delete('/delete', function(req, res, next){
+      var context = {};
+      var mysql = req.app.get('mysql');
+
+      mysql.pool.query("DELETE FROM Physicians WHERE id=?", [req.query.id], function(err, result){
+        if(err){
+          next(err);
+          return;
+        }
+        context.results = "Deleted" + result.changedRows;
+        res.render('home', context);
+      });
+    });
+
     return router;
 }();
