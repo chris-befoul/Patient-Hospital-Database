@@ -129,7 +129,7 @@ function deleteRow(idVal) {
     var req = new XMLHttpRequest();
     var id = idVal;
 
-    req.open('GET', 'http://flip1.engr.oregonstate.edu:9919/hospitals?id=' + id, true);
+    req.open('DELETE', 'http://flip1.engr.oregonstate.edu:9919/hospitals/delete?id=' + id, true);
       
     // Event listener that fires when entire page is loaded, and triggers function.
     req.addEventListener('load',function(){

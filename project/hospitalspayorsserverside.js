@@ -54,5 +54,20 @@ module.exports = function(){
         });
     });
 
+    // DELETE route to delete a table row based on id.
+    router.delete('/delete', function(req, res, next){
+      var context = {};
+      var mysql = req.app.get('mysql');
+
+      mysql.pool.query("DELETE FROM Hospitals_Payors WHERE hospitalID=? and payorID=?", [req.query.hospitalID, req.query.payorID], function(err, result){
+        if(err){
+          next(err);
+          return;
+        }
+        context.results = "Deleted" + result.changedRows;
+        res.render('hospitalspayors', context);
+      });
+    });
+
     return router;
 }();

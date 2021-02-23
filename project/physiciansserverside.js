@@ -53,7 +53,7 @@ module.exports = function(){
         });
     });
 
-    // GET route to delete a table row based on id.
+    // DELETE route to delete a table row based on id.
     router.delete('/delete', function(req, res, next){
       var context = {};
       var mysql = req.app.get('mysql');
@@ -64,7 +64,7 @@ module.exports = function(){
           return;
         }
         context.results = "Deleted" + result.changedRows;
-        res.render('home', context);
+        res.render('physicians', context);
       });
     });
 
