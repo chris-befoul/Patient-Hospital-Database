@@ -9,7 +9,7 @@ module.exports = function(){
         var mysql = req.app.get('mysql');
 
         // Query to return everything from the table.
-        mysql.pool.query('SELECT hospitalID, payorID FROM Hospitals_Payors', function(err, rows, fields){
+        mysql.pool.query('SELECT rowID, hospitalID, payorID FROM Hospitals_Payors', function(err, rows, fields){
           if(err){
             next(err);
             return;
