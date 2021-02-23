@@ -65,6 +65,7 @@ module.exports = function(){
           return;
         }
         context.results = "Deleted" + result.changedRows;
+        console.log(context);
         res.render('hospitalspayors', context);
       });
     });
