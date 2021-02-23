@@ -59,7 +59,7 @@ module.exports = function(){
       var context = {};
       var mysql = req.app.get('mysql');
 
-      mysql.pool.query("DELETE FROM Hospitals_Payors WHERE hospitalID=? and payorID=?", [req.query.hospitalID, req.query.payorID], function(err, result){
+      mysql.pool.query("DELETE FROM Hospitals_Payors WHERE rowID=?", [req.query.id], function(err, result){
         if(err){
           next(err);
           return;
