@@ -173,9 +173,9 @@ function updateRow(idVal) {
 
         } else {
         console.log("Error in network request: " + req.statusText);
-    };
-      req.send();
-    })};
+    }});
+    req.send();
+  };
 
 // Function to make table cells editable.
 function editRow(idVal) {
