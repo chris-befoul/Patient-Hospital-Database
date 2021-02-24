@@ -72,7 +72,7 @@ module.exports = function(){
     router.post('/update', function(req,res,next){
       var context = {};
       var mysql = req.app.get('mysql');
-      
+
       mysql.pool.query("SELECT * FROM Physicians WHERE physicianID=?", [req.query.id], function(err, result){
         if(err){
           next(err);
@@ -81,7 +81,7 @@ module.exports = function(){
         if(result.length == 1){
           var curVals = result[0];
           
-          pool.query("UPDATE Physicians SET firstName=?, lastName=?, specialty=?, WHERE id=?",
+          mysql.pool.query("UPDATE Physicians SET firstName=?, lastName=?, specialty=?, WHERE id=?",
             [req.query.firstName || curVals.firstName, req.query.lastName || curVals.lastName, req.query.specialty || curVals.specialty, req.query.id],
             function(err, result){
             if(err){
