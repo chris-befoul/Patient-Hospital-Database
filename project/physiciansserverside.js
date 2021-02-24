@@ -81,7 +81,7 @@ module.exports = function(){
         if(result.length == 1){
           var curVals = result[0];
           
-          mysql.pool.query("UPDATE Physicians SET firstName=?, lastName=?, specialty=?, WHERE id=?",
+          mysql.pool.query("UPDATE Physicians SET firstName=?, lastName=?, specialty=?, WHERE physicianID=?",
             [req.query.firstName || curVals.firstName, req.query.lastName || curVals.lastName, req.query.specialty || curVals.specialty, req.query.id],
             function(err, result){
             if(err){
