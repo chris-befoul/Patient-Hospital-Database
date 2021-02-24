@@ -68,5 +68,30 @@ module.exports = function(){
       });
     });
 
+    // POST route to update row based on id and to keep current values if no new ones are provided.
+    app.post('/update', function(req,res,next){
+      var context = {};
+      mysql.pool.query("SELECT * FROM Physicians WHERE physicianID=?", [req.query.id], function(err, result){
+        if(err){
+          next(err);
+          return;
+        }
+        if(result.length == 1){
+          var curVals = result[0];
+          
+          pool.query("UPDATE Physicians SET firstName=?, lastName=?, specialty=?, WHERE id=?",
+            [req.query.firstName || curVals.firstName, req.query.lastName || curVals.lastName, req.query.specialty || curVals.specialty, req.query.id],
+            function(err, result){
+            if(err){
+              next(err);
+              return;
+            }
+            context.results = "Updated " + result.changedRows + " rows.";
+            res.send("Entry has been updated");
+          });
+        }
+      });
+    });
+
     return router;
 }();
