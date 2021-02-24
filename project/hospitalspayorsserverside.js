@@ -70,5 +70,32 @@ module.exports = function(){
       });
     });
 
+    // POST route to update row based on id and to keep current values if no new ones are provided.
+    router.post('/update', function(req,res,next){
+      var context = {};
+      var mysql = req.app.get('mysql');
+
+      mysql.pool.query("SELECT * FROM Hospitals_Payors WHERE rowID=?", [req.query.id], function(err, result){
+        if(err){
+          next(err);
+          return;
+        }
+        if(result.length == 1){
+          var curVals = result[0];
+          
+          mysql.pool.query("UPDATE Hospitals_Payors SET hospitalID=?, payorID=? WHERE rowID=?",
+            [req.query.hospitalID || curVals.hospitalID, req.query.payorID || curVals.payorID, req.query.id],
+            function(err, result){
+            if(err){
+              next(err);
+              return;
+            }
+            context.results = "Updated " + result.changedRows + " rows.";
+            res.send("Entry has been updated");
+          });
+        }
+      });
+    });
+
     return router;
 }();

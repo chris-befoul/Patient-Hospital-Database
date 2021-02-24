@@ -124,7 +124,6 @@ document.getElementById("searchRelationship").addEventListener("click", function
 function deleteRow(idVal) {
     var req = new XMLHttpRequest();
     var id = idVal;
-    console.log(id);
     req.open('DELETE', 'http://flip1.engr.oregonstate.edu:9919/hospitalspayors/delete?id=' + id, true);
       
     // Event listener that fires when entire page is loaded, and triggers function.
@@ -150,11 +149,10 @@ function updateRow(idVal) {
     var rowIndex = findRow(idVal)
 
     // Variables for each entry in row that needs to be upated after editing.
-    var lastName = table.rows[rowIndex].cells[1].innerHTML;
-    var firstName = table.rows[rowIndex].cells[2].innerHTML;
-    var specialty = table.rows[rowIndex].cells[3].innerHTML;
+    var hospitalID = table.rows[rowIndex].cells[1].innerHTML;
+    var payorID = table.rows[rowIndex].cells[2].innerHTML;
 
-    req.open('POST', 'http://flip1.engr.oregonstate.edu:9919/update?id=' + id + "&lastName=" + lastName + "&firstName=" + firstName + "&specialty=" + specialty, true);
+    req.open('POST', 'http://flip1.engr.oregonstate.edu:9919/hospitalspayors/update?id=' + id + "&hospitalID=" + hospitalID + "&payorID=" + payorID, true);
 
     // Event listener that fires when entire page is loaded, and triggers function.
     req.addEventListener('load',function(){
@@ -165,7 +163,6 @@ function updateRow(idVal) {
         // Change each cell back to being uneditable.
         table.rows[rowIndex].cells[1].contentEditable = false;
         table.rows[rowIndex].cells[2].contentEditable = false;
-        table.rows[rowIndex].cells[3].contentEditable = false;
 
         getHospitalsPayors();
 
@@ -182,7 +179,6 @@ function editRow(idVal) {
     // Let each cell in a particular row be editable.
     table.rows[rowIndex].cells[1].contentEditable = true;
     table.rows[rowIndex].cells[2].contentEditable = true;
-    table.rows[rowIndex].cells[3].contentEditable = true;
     };
 
 // Function to find row with matching id value and return row index.
