@@ -71,6 +71,8 @@ module.exports = function(){
     // POST route to update row based on id and to keep current values if no new ones are provided.
     router.post('/update', function(req,res,next){
       var context = {};
+      var mysql = req.app.get('mysql');
+      
       mysql.pool.query("SELECT * FROM Physicians WHERE physicianID=?", [req.query.id], function(err, result){
         if(err){
           next(err);
