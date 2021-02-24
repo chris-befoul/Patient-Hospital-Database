@@ -69,7 +69,6 @@ function getHospitalsPayors() {
       console.log("Error in network request: " + req.statusText);
     }});
     req.send();
-    event.preventDefault();
 };
 
 
