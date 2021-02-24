@@ -145,7 +145,7 @@ function deleteRow(idVal) {
 function updateRow(idVal) {
     var req = new XMLHttpRequest();
     var id = idVal;
-    var table = document.getElementById("mainHospitalPayorsTable");
+    var table = document.getElementById("mainHospitalPayorTable");
     var rowIndex = findRow(idVal)
 
     // Variables for each entry in row that needs to be upated after editing.
@@ -174,7 +174,7 @@ function updateRow(idVal) {
 
 // Function to make table cells editable.
 function editRow(idVal) {
-    var table = document.getElementById("mainHospitalPayorsTable");
+    var table = document.getElementById("mainHospitalPayorTable");
     var rowIndex = findRow(idVal)
     // Let each cell in a particular row be editable.
     table.rows[rowIndex].cells[1].contentEditable = true;
@@ -183,7 +183,7 @@ function editRow(idVal) {
 
 // Function to find row with matching id value and return row index.
 function findRow(idVal) {
-    var table = document.getElementById("mainHospitalPayorsTable");
+    var table = document.getElementById("mainHospitalPayorTable");
     var rowIndex;
 
     // For loop to iterate through table rows.
