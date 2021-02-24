@@ -150,7 +150,7 @@ function updateRow(idVal) {
     var id = idVal;
     var table = document.getElementById("mainPhysicianTable");
     var rowIndex = findRow(idVal)
-    
+    console.log(id);
     // Variables for each entry in row that needs to be upated after editing.
     var lastName = table.rows[rowIndex].cells[1].innerHTML;
     var firstName = table.rows[rowIndex].cells[2].innerHTML;
