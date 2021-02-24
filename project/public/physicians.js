@@ -47,7 +47,6 @@ function getPhysicians() {
         // Add event listener for each delete button.
         document.querySelectorAll('.deleteRow').forEach(function(item) {
           item.addEventListener('click', function(event) {
-          console.log(item.value + "test");
           deleteRow(item.value);
           event.preventDefault();
         })});
@@ -70,7 +69,7 @@ function getPhysicians() {
       console.log("Error in network request: " + req.statusText);
     }});
     req.send();
-    event.preventDefault();
+    //event.preventDefault();
 };
 
 
