@@ -82,7 +82,7 @@ module.exports = function(){
         if(result.length == 1){
           var curVals = result[0];
           
-          mysql.pool.query("UPDATE Hospitals SET hospitalName=?, city=?, state=?, zip=? WHERE physicianID=?",
+          mysql.pool.query("UPDATE Hospitals SET hospitalName=?, city=?, state=?, zip=? WHERE hospitalID=?",
             [req.query.hospitalName || curVals.hospitalName, req.query.city || curVals.city, req.query.state || curVals.state, req.query.zip || curVals.zip, req.query.id],
             function(err, result){
             if(err){
