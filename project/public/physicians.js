@@ -69,7 +69,7 @@ function getPhysicians() {
       console.log("Error in network request: " + req.statusText);
     }});
     req.send();
-    event.preventDefault();
+    //event.preventDefault();
 };
 
 
@@ -127,7 +127,7 @@ function deleteRow(idVal) {
     var req = new XMLHttpRequest();
     var id = idVal;
 
-    req.open('GET', 'http://flip1.engr.oregonstate.edu:9919/physicians?id=' + id, true);
+    req.open('DELETE', 'http://flip1.engr.oregonstate.edu:9919/physicians/delete?id=' + id, true);
       
     // Event listener that fires when entire page is loaded, and triggers function.
     req.addEventListener('load',function(){
@@ -150,12 +150,13 @@ function updateRow(idVal) {
     var id = idVal;
     var table = document.getElementById("mainPhysicianTable");
     var rowIndex = findRow(idVal)
+
     // Variables for each entry in row that needs to be upated after editing.
     var lastName = table.rows[rowIndex].cells[1].innerHTML;
     var firstName = table.rows[rowIndex].cells[2].innerHTML;
     var specialty = table.rows[rowIndex].cells[3].innerHTML;
 
-    req.open('POST', 'http://flip1.engr.oregonstate.edu:9919/update?id=' + id + "&lastName=" + lastName + "&firstName=" + firstName + "&specialty=" + specialty, true);
+    req.open('POST', 'http://flip1.engr.oregonstate.edu:9919/physicians/update?id=' + id + "&lastName=" + lastName + "&firstName=" + firstName + "&specialty=" + specialty, true);
 
     // Event listener that fires when entire page is loaded, and triggers function.
     req.addEventListener('load',function(){
@@ -172,9 +173,9 @@ function updateRow(idVal) {
 
         } else {
         console.log("Error in network request: " + req.statusText);
-    };
+    }});
     req.send();
-    })};
+  };
 
 // Function to make table cells editable.
 function editRow(idVal) {
@@ -198,3 +199,5 @@ function findRow(idVal) {
         var rowIndex = i;
         return rowIndex;
 }}};
+
+getPhysicians();
