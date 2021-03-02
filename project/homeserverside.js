@@ -29,7 +29,14 @@ app.get('/patients', function(req, res, next) {
             next(err);
             return;
         }
-        context.results = result;
+        context.payors = result;
+    });
+    mysql.pool.query("SELECT physicianID FROM Physicians", function (err, result) {
+        if (err) {
+            next(err);
+            return;
+        }
+        context.doctors = result;
         res.render('patients', context);
     });
 });
@@ -64,6 +71,22 @@ app.post('/patients',function(req,res,next) {
         return;
       }
       context.results = rows;
+      var num = context.results.length;
+      for (var i = 0; i < num; i++) {
+        var d = context.results[i].dob
+        var month = d.getMonth() + 1
+        if (month < 10) {
+          month = ('0' + month).slice(-2)
+        }
+        var day = d.getDate()
+        if (day < 10) {
+          day = ('0' + day).slice(-2)
+        }
+        var year = d.getFullYear()
+        d = [year, month, day].join('-');
+        context.results[i].dob = d
+      }
+      /*
       var num = context.results.length
       for (var i = 0; i < num; i++) {
         var d = context.results[i].dob
@@ -73,6 +96,8 @@ app.post('/patients',function(req,res,next) {
         d = [month, day, year].join('-');
         context.results[i].dob = d
       }
+
+       */
       res.send(context)
     })
   }
@@ -95,6 +120,68 @@ app.post('/patients',function(req,res,next) {
       }
       res.send(context)
     })
+  }
+
+  if (req.body.submit === 'Update') {
+    var a = req.body.fname
+    var b = req.body.lname
+    var c = req.body.dob
+    var d = req.body.address
+    var e = req.body.city
+    var f = req.body.state
+    var g = req.body.zip
+    var h = req.body.gender
+    var i = req.body.diagnosis
+    if (req.body.physID !== "NULL"){
+      var j = Number(req.body.physID)
+    } else {
+      var j = null
+    };
+    if (req.body.payID !== "NULL"){
+      var k = Number(req.body.payID)
+    } else {
+      var k = null
+    };
+    var l = Number(req.body.patID);
+    mysql.pool.query("SELECT * FROM Patients WHERE patientID=?", [l], function (err, result) {
+      if (err) {
+        next(err);
+        return;
+      }
+      if (result.length == 1) {
+        var curVals = result[0];
+        mysql.pool.query("UPDATE Patients SET firstName=?, lastName=?, dob=?, address=?, city=?, state=?, zip=?, gender=?, primDiagnosis=?, physicianID=?, payorID=? WHERE patientID=?",
+            [a || curVals.firstName, b || curVals.lastName, c || curVals.dob, d || curVals.address, e || curVals.city, f || curVals.state, Number(g) || curVals.zip, h || curVals.gender, i || curVals.primDiagnosis, j, k, l],
+            function (err, result) {
+              if (err) {
+                next(err);
+                return;
+              }
+              res.send('Entry has been updated.');
+            });
+      }
+    })
+  }
+
+  if (req.body.submit === 'payID'){
+    mysql.pool.query('SELECT payorID FROM Payors', function (err, rows, fields) {
+      if (err) {
+        next(err);
+        return;
+      }
+      context.results = rows;
+      res.send(context)
+    })
+  }
+
+  if (req.body.Delete === 'Delete'){
+    mysql.pool.query("DELETE FROM Patients WHERE patientID = ?", [req.body.id], function (err, result){
+      if(err){
+        next(err);
+        return;
+      }
+      res.send();
+    });
   }
 });
 
@@ -138,6 +225,42 @@ app.post('/payors',function(req,res,next) {
       }
       context.results = rows;
       res.send(context)
+    })
+  }
+
+  if (req.body.Delete === 'Delete'){
+    mysql.pool.query("DELETE FROM Payors WHERE payorID = ?", [req.body.id], function (err, result){
+      if(err){
+        next(err);
+        return;
+      }
+      res.send();
+    });
+  }
+
+  if (req.body.submit === 'Update') {
+    var a = req.body.company
+    var b = req.body.city
+    var c = req.body.state
+    var d = Number(req.body.zip)
+    var e = Number(req.body.payID);
+    mysql.pool.query("SELECT * FROM Payors WHERE payorID=?", [e], function (err, result) {
+      if (err) {
+        next(err);
+        return;
+      }
+      if (result.length == 1) {
+        var curVals = result[0];
+        mysql.pool.query("UPDATE Payors SET company=?, city=?, state=?, zip=? WHERE payorID =?",
+            [a || curVals.company, b || curVals.city, c || curVals.state, d || curVals.zip, Number(e)],
+            function (err, result) {
+              if (err) {
+                next(err);
+                return;
+              }
+              res.send('Entry has been updated.');
+            });
+      }
     })
   }
 });

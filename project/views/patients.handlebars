@@ -55,26 +55,28 @@
                     <input type="number" name="AddZip" size="30" required>
                 </label>
                 <br>
-                <label>Gender:
-                    <br>
-                    <select name="AddGender">
-                        <option value="Male">Male</option>
-                        <option value="Female">Female</option>
-                    </select>
-                </label>
+                <label>Gender: </label>
+                <select id="genderMenu" name="AddGender">
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                </select>
                 <br>
                 <label>Primary Diagnosis:
                     <input type="text" name="AddDiagnosis" size="30" required>
                 </label>
                 <br>
-                <label>Physician Identification Number:
-                    <input type="number" name="AddPhysID" size="30">
-                </label>
+                <label>Physician Identification Number: </label>
+                <select id="PhysID" name="PhysID">
+                    <option value="NULL">None</option>
+                    {{#each doctors}}
+                        <option value={{this.physicianID}}>{{this.physicianID}}</option>
+                    {{/each}}
+                </select>
                 <br>
                 <label for="PayName">Payor: </label>
                 <select id="PayName" name="PayName">
                     <option value="NULL">None</option>
-                    {{#each results}}
+                    {{#each payors}}
                         <option value="{{this.company}}">{{this.company}}</option>
                     {{/each}}
                 </select>

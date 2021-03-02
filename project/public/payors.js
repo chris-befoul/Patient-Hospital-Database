@@ -52,15 +52,15 @@ function buildPayTable(data){
         Delete.innerHTML = "Delete";
         cell11.appendChild(Delete);
         row.appendChild(cell11);
-        /*
         Delete.addEventListener("click", function (event){
-            var payID = this.parentNode.parentNode.lastElementChild.firstElementChild.firstElementChild
-            payID = payorID.value;
+            var payID = this.parentNode.nextSibling.firstChild
+            payID = payID.value;
             var curID = {};
             curID.id = payID;
             curID.Delete = 'Delete';
             var req = new XMLHttpRequest();
             req.addEventListener('load',function(){
+                initPayTable();
                 if(req.status >= 200 && req.status < 400){
                     console.log(req.responseText);
                 } else {
@@ -69,10 +69,9 @@ function buildPayTable(data){
             req.open('POST', "http://flip1.engr.oregonstate.edu:9919/payors",true);
             req.setRequestHeader('Content-type', "application/json");
             req.send(JSON.stringify(curID));
-            initPayTable()
+            alert("Payor has been deleted from Hardison-Kim Hospital database.");
             event.preventDefault();
         })
-         */
         var cell12 = document.createElement("td");
         var hid = document.createElement("input");
         hid.setAttribute("type", "hidden");
@@ -87,13 +86,52 @@ function buildPayTable(data){
         Edit.innerHTML = "Edit";
         cell13.appendChild(Edit);
         row.appendChild(cell13);
+        var count = 0;
+        Edit.addEventListener('click', function (event){
+            curRow = this.parentNode.parentNode.rowIndex
+            count ++;
+            if (count > 1){
+                initPayTable();
+            };
+            this.parentNode.parentNode.lastElementChild.lastElementChild.style.display = "block";
+            var table = document.getElementById("PayorTable");
+            table.rows[curRow].cells[0].contentEditable = true;
+            table.rows[curRow].cells[1].contentEditable = true;
+            table.rows[curRow].cells[2].contentEditable = true;
+            table.rows[curRow].cells[3].contentEditable = true;
+            if (count === 1) {
+                alert('Click "Update" to save changes made or "Edit" to undo/restore data.');
+            };
+            event.preventDefault();
+        })
         var cell14 = document.createElement("td");
         var Update = document.createElement("button");
         Update.setAttribute("id", "Update");
         Update.setAttribute('value', "Update");
         Update.innerHTML = "Update";
+        Update.style.display = "none";
         cell14.appendChild(Update);
         row.appendChild(cell14);
+        Update.addEventListener('click', function (event){
+            var req = new XMLHttpRequest();
+            var curRow = this.parentNode.parentNode.rowIndex;
+            var updatePay = {};
+            var table = document.getElementById("PayorTable");
+            updatePay.submit = "Update";
+            updatePay.company = table.rows[curRow].cells[0].innerHTML;
+            updatePay.city = table.rows[curRow].cells[1].innerHTML;
+            updatePay.state = table.rows[curRow].cells[2].innerHTML;
+            updatePay.zip = table.rows[curRow].cells[3].innerHTML;
+            updatePay.payID = table.rows[curRow].cells[5].lastElementChild.value;
+            req.addEventListener("load", function(){
+                initPayTable();
+            });
+            req.open("POST", "http://flip1.engr.oregonstate.edu:9919/payors", true);
+            req.setRequestHeader('Content-type', "application/json");
+            req.send(JSON.stringify(updatePay));
+            alert("Payor has been updated.");
+            event.preventDefault();
+        })
         table.appendChild(row);
     }
     return table;
@@ -105,7 +143,6 @@ function searchPayTable() {
             submit: document.getElementById('searchPay').value,
             company: document.getElementById('SearchCompany').value,
         };
-        console.log(form);
         var req = new XMLHttpRequest();
 
         req.addEventListener("load", function () {
