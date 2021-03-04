@@ -2,72 +2,72 @@
 // Function to GET to root directory and retrieve current workouts.
 function searchPhysicians(lastName, firstName, specialty) {
     var req = new XMLHttpRequest();
-    
+
     req.open("GET", "http://flip1.engr.oregonstate.edu:9919/physicians/search?lastName=" + lastName + "&firstName=" + firstName + "&specialty=" + specialty, true);
     req.setRequestHeader("Content-Type", "application/json");
 
     req.addEventListener('load',function(){
-      if(req.status >= 200 && req.status < 400){
-        var response = req.responseText;
-        console.log(response);
-  
-        // Constants to create DOMParser and grab response.
-        const parser = new DOMParser();
-        const newDoc = parser.parseFromString(response, 'text/html');
+        if(req.status >= 200 && req.status < 400){
+            var response = req.responseText;
+            console.log(response);
 
-        // Use DOM to get just innerHTML of the table.
-        document.getElementById("searchPhysicianTable").innerHTML = newDoc.getElementById("searchPhysicianTable").innerHTML; 
-  
-      } else {
-      console.log("Error in network request: " + req.statusText);
-    }});
-    
+            // Constants to create DOMParser and grab response.
+            const parser = new DOMParser();
+            const newDoc = parser.parseFromString(response, 'text/html');
+
+            // Use DOM to get just innerHTML of the table.
+            document.getElementById("searchPhysicianTable").innerHTML = newDoc.getElementById("searchPhysicianTable").innerHTML;
+
+        } else {
+            console.log("Error in network request: " + req.statusText);
+        }});
+
     req.send();
     event.preventDefault();
-  };
+};
 
 function getPhysicians() {
     var req = new XMLHttpRequest();
-    
+
     req.open("GET", "http://flip1.engr.oregonstate.edu:9919/physicians", true);
     req.setRequestHeader("Content-Type", "application/json");
 
     req.addEventListener('load',function(){
-      if(req.status >= 200 && req.status < 400){
-        var response = req.responseText;
-        console.log(response);
-  
-        // Constants to create DOMParser and grab response.
-        const parser = new DOMParser();
-        const newDoc = parser.parseFromString(response, 'text/html');
+        if(req.status >= 200 && req.status < 400){
+            var response = req.responseText;
+            console.log(response);
 
-        // Use DOM to get just innerHTML of the table.
-        document.getElementById("physicianTableBody").innerHTML = newDoc.getElementById("physicianTableBody").innerHTML;
-    
-        // Add event listener for each delete button.
-        document.querySelectorAll('.deleteRow').forEach(function(item) {
-          item.addEventListener('click', function(event) {
-          deleteRow(item.value);
-          event.preventDefault();
-        })});
+            // Constants to create DOMParser and grab response.
+            const parser = new DOMParser();
+            const newDoc = parser.parseFromString(response, 'text/html');
 
-        // Add event listener for each edit button.
-        document.querySelectorAll('.editRow').forEach(function(item) {
-        item.addEventListener('click', function(event) {
-          editRow(item.value);
-          event.preventDefault();
-        })});
+            // Use DOM to get just innerHTML of the table.
+            document.getElementById("physicianTableBody").innerHTML = newDoc.getElementById("physicianTableBody").innerHTML;
 
-        // Add event listener for each update button.
-        document.querySelectorAll('.updateRow').forEach(function(item) {
-        item.addEventListener('click', function(event) {
-          updateRow(item.value);
-          event.preventDefault();
-        })});
-  
-      } else {
-      console.log("Error in network request: " + req.statusText);
-    }});
+            // Add event listener for each delete button.
+            document.querySelectorAll('.deleteRow').forEach(function(item) {
+                item.addEventListener('click', function(event) {
+                    deleteRow(item.value);
+                    event.preventDefault();
+                })});
+
+            // Add event listener for each edit button.
+            document.querySelectorAll('.editRow').forEach(function(item) {
+                item.addEventListener('click', function(event) {
+                    editRow(item.value);
+                    event.preventDefault();
+                })});
+
+            // Add event listener for each update button.
+            document.querySelectorAll('.updateRow').forEach(function(item) {
+                item.addEventListener('click', function(event) {
+                    updateRow(item.value);
+                    event.preventDefault();
+                })});
+
+        } else {
+            console.log("Error in network request: " + req.statusText);
+        }});
     req.send();
     //event.preventDefault();
 };
@@ -77,73 +77,73 @@ function getPhysicians() {
 document.getElementById("addPhysician").addEventListener("click", function(event) {
     // Variable for request.
     var req = new XMLHttpRequest();
-  
+
     // Variables for each entry in form.
     var lastName = document.getElementById("addLast").value;
     var firstName = document.getElementById("addFirst").value;
     var specialty = document.getElementById("addSpecialty").value;
 
     if (lastName && firstName && specialty) {
-      req.open('POST', 'http://flip1.engr.oregonstate.edu:9919/physicians?lastName=' + lastName + "&firstName=" + firstName + "&specialty=" + specialty, true);
-      req.setRequestHeader("Content-Type", "application/json");
-      
-      // Event listener that fires when entire page is loaded, and triggers function.
-      req.addEventListener('load',function(){
-        if(req.status >= 200 && req.status < 400){
-          var response = req.responseText;
-          console.log(response);
-  
-          // Get workout rows for database to display latest data on page.
-          getPhysicians();
-  
-        } else {
-        console.log("Error in network request: " + req.statusText);
-      }});
-     
-      req.send();
-  
-      // Prevent page from reloading.
-      event.preventDefault();
+        req.open('POST', 'http://flip1.engr.oregonstate.edu:9919/physicians?lastName=' + lastName + "&firstName=" + firstName + "&specialty=" + specialty, true);
+        req.setRequestHeader("Content-Type", "application/json");
+
+        // Event listener that fires when entire page is loaded, and triggers function.
+        req.addEventListener('load',function(){
+            if(req.status >= 200 && req.status < 400){
+                var response = req.responseText;
+                console.log(response);
+
+                // Get workout rows for database to display latest data on page.
+                getPhysicians();
+
+            } else {
+                console.log("Error in network request: " + req.statusText);
+            }});
+
+        req.send();
+
+        // Prevent page from reloading.
+        event.preventDefault();
     } else {
-      alert("Please fill in all fields.")
-  }});
+        alert("Please fill in all fields.")
+    }});
 
 // Event listener for submit button for searching for a Physician.
 document.getElementById("searchPhysician").addEventListener("click", function(event) {
     // Variable for request.
     var req = new XMLHttpRequest();
-  
+
     // Variables for each entry in form.
     var lastName = document.getElementById("searchLast").value;
     var firstName = document.getElementById("searchFirst").value;
     var specialty = document.getElementById("searchSpecialty").value;
 
     searchPhysicians(lastName, firstName, specialty);
-    
-  });
-  
-  // Function to delete row and takes id of row as a parameter.
+
+});
+
+// Function to delete row and takes id of row as a parameter.
 function deleteRow(idVal) {
     var req = new XMLHttpRequest();
     var id = idVal;
 
     req.open('DELETE', 'http://flip1.engr.oregonstate.edu:9919/physicians/delete?id=' + id, true);
-      
+
     // Event listener that fires when entire page is loaded, and triggers function.
     req.addEventListener('load',function(){
-      if(req.status >= 200 && req.status < 400){
-        var response = req.responseText;
-        console.log(response);
-  
-        // Get workout rows for database to display latest data on page.
-        getPhysicians();
-      
-      } else {
-      console.log("Error in network request: " + req.statusText);
-    }});
+        if(req.status >= 200 && req.status < 400){
+            var response = req.responseText;
+            console.log(response);
+
+            // Get workout rows for database to display latest data on page.
+            getPhysicians();
+
+        } else {
+            console.log("Error in network request: " + req.statusText);
+        }});
     req.send();
-  };
-  
+};
+
 // Function to update row and takes id of row as a parameter.
 function updateRow(idVal) {
     var req = new XMLHttpRequest();
@@ -161,21 +161,21 @@ function updateRow(idVal) {
     // Event listener that fires when entire page is loaded, and triggers function.
     req.addEventListener('load',function(){
         if(req.status >= 200 && req.status < 400){
-        var response = req.responseText;
-        console.log(response);
-        
-        // Change each cell back to being uneditable.
-        table.rows[rowIndex].cells[1].contentEditable = false;
-        table.rows[rowIndex].cells[2].contentEditable = false;
-        table.rows[rowIndex].cells[3].contentEditable = false;
+            var response = req.responseText;
+            console.log(response);
 
-        getPhysicians();
+            // Change each cell back to being uneditable.
+            table.rows[rowIndex].cells[1].contentEditable = false;
+            table.rows[rowIndex].cells[2].contentEditable = false;
+            table.rows[rowIndex].cells[3].contentEditable = false;
+
+            getPhysicians();
 
         } else {
-        console.log("Error in network request: " + req.statusText);
-    }});
+            console.log("Error in network request: " + req.statusText);
+        }});
     req.send();
-  };
+};
 
 // Function to make table cells editable.
 function editRow(idVal) {
@@ -185,7 +185,7 @@ function editRow(idVal) {
     table.rows[rowIndex].cells[1].contentEditable = true;
     table.rows[rowIndex].cells[2].contentEditable = true;
     table.rows[rowIndex].cells[3].contentEditable = true;
-    };
+};
 
 // Function to find row with matching id value and return row index.
 function findRow(idVal) {
@@ -196,8 +196,8 @@ function findRow(idVal) {
     for (var i = 0, row; row = table.rows[i]; i++) {
 
         if (row.cells[0].innerHTML == idVal) {
-        var rowIndex = i;
-        return rowIndex;
-}}};
+            var rowIndex = i;
+            return rowIndex;
+        }}};
 
 getPhysicians();

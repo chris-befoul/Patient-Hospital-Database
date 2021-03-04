@@ -65,7 +65,21 @@ function buildPatTable(data){
         cell2.style.border = "solid black";
         row.appendChild(cell2);
         var cell3 = document.createElement("td");
-        cell3.appendChild(document.createTextNode(tableData[i].dob));
+        var datePick = document.createElement("input")
+        datePick.setAttribute("type", "hidden");
+        datePick.setAttribute("value", tableData[i].dob);
+        datePick.setAttribute("id", "datePick");
+        cell3.appendChild(datePick);
+        var d = new Date(tableData[i].dob)
+        var month = d.getMonth() + 1
+        var day = d.getDate() + 1
+        var year = d.getFullYear()
+        d = [month, day, year].join('-');
+        tableData[i].dob = d
+        var textDate = document.createTextNode(tableData[i].dob)
+        var dateBox = document.createElement("div");
+        dateBox.appendChild(textDate);
+        cell3.appendChild(dateBox);
         cell3.style.border = "solid black";
         row.appendChild(cell3);
         var cell4 = document.createElement("td");
@@ -85,7 +99,10 @@ function buildPatTable(data){
         cell6.style.border = "solid black";
         row.appendChild(cell6);
         var cell7 = document.createElement("td");
-        cell7.appendChild(document.createTextNode(tableData[i].gender));
+        var textGender = document.createTextNode(tableData[i].gender);
+        var genderBox = document.createElement("div");
+        genderBox.appendChild(textGender);
+        cell7.appendChild(genderBox);
         cell7.style.border = "solid black";
         row.appendChild(cell7);
         var cell8 = document.createElement("td");
@@ -93,11 +110,15 @@ function buildPatTable(data){
         cell8.style.border = "solid black";
         row.appendChild(cell8);
         var cell9 = document.createElement("td");
-        cell9.appendChild(document.createTextNode(tableData[i].physicianID));
+        var physID = document.createElement("div");
+        physID.appendChild(document.createTextNode(tableData[i].physicianID));
+        cell9.appendChild(physID);
         cell9.style.border = "solid black";
         row.appendChild(cell9);
         var cell10 = document.createElement("td");
-        cell10.appendChild(document.createTextNode(tableData[i].payorID));
+        var payID = document.createElement("div");
+        payID.appendChild(document.createTextNode(tableData[i].payorID));
+        cell10.appendChild(payID);
         cell10.style.border = "solid black";
         row.appendChild(cell10);
 
@@ -110,10 +131,9 @@ function buildPatTable(data){
         Delete.innerHTML = "Delete";
         cell11.appendChild(Delete);
         row.appendChild(cell11);
-        /*
         Delete.addEventListener("click", function (event){
-            var patID = this.parentNode.parentNode.lastElementChild.firstElementChild.firstElementChild
-            patID = patientID.value;
+            var patID = this.parentNode.nextSibling.firstChild
+            patID = patID.value;
             var curID = {};
             curID.id = patID;
             curID.Delete = 'Delete';
@@ -127,14 +147,15 @@ function buildPatTable(data){
             req.open('POST', "http://flip1.engr.oregonstate.edu:9919/patients",true);
             req.setRequestHeader('Content-type', "application/json");
             req.send(JSON.stringify(curID));
-            initPatTable()
+            initPatTable();
+            alert("Patient has been deleted from Hardison-Kim Hospital database.");
             event.preventDefault();
         })
-         */
         var cell12 = document.createElement("td");
         var hid = document.createElement("input");
         hid.setAttribute("type", "hidden");
         hid.setAttribute('name','id');
+        hid.setAttribute('id','id');
         hid.setAttribute("value", tableData[i].patientID);
         cell12.appendChild(hid);
         row.appendChild(cell12);
@@ -145,13 +166,109 @@ function buildPatTable(data){
         Edit.innerHTML = "Edit";
         cell13.appendChild(Edit);
         row.appendChild(cell13);
+        var count = 0;
+        Edit.addEventListener('click', function (event){
+            curRow = this.parentNode.parentNode.rowIndex
+            this.parentNode.parentNode.lastElementChild.lastElementChild.style.display = "block";
+            var table = document.getElementById("PatientTable");
+            var form = {submit: "payID"};
+            var req = new XMLHttpRequest();
+            req.addEventListener("load", function(){
+                var response = req.responseText;
+                response = JSON.parse(response);
+                var select = document.createElement("select");
+                select.id = "payID"
+
+                for (const val of response.results) {
+                   var option = document.createElement("option");
+                   option.value = val.payorID;
+                   option.text = val.payorID;
+                   select.appendChild(option);
+                }
+                option = document.createElement('option');
+                option.value = "NULL";
+                option.text = "None";
+                select.appendChild(option);
+                if (table.rows[curRow].cells[10].innerText === "null"){
+                    select.value = "NULL";
+                } else {    select.value = Number(table.rows[curRow].cells[10].innerText);
+                }
+                table.rows[curRow].cells[10].appendChild(select);
+                table.rows[curRow].cells[10].firstElementChild.remove();
+            });
+            req.open("POST", "http://flip1.engr.oregonstate.edu:9919/patients", true);
+            req.setRequestHeader('Content-type', "application/json");
+            req.send(JSON.stringify(form));
+            count ++;
+            if (count > 1){
+                initPatTable();
+            };
+            table.rows[curRow].cells[0].contentEditable = true;
+            table.rows[curRow].cells[1].contentEditable = true;
+            table.rows[curRow].cells[2].contentEditable = true;
+            table.rows[curRow].cells[2].firstElementChild.setAttribute("type", "date");
+            table.rows[curRow].cells[2].lastElementChild.remove();
+            table.rows[curRow].cells[3].contentEditable = true;
+            table.rows[curRow].cells[4].contentEditable = true;
+            table.rows[curRow].cells[5].contentEditable = true;
+            table.rows[curRow].cells[6].contentEditable = true;
+            var originalGender = document.getElementById("genderMenu");
+            var genderDrop = originalGender.cloneNode(true);
+            genderDrop.setAttribute('id', 'genderDrop');
+            genderDrop.setAttribute('value', table.rows[curRow].cells[7].innerHTML);
+            genderDrop.value = table.rows[curRow].cells[7].innerText;
+            table.rows[curRow].cells[7].appendChild(genderDrop);
+            table.rows[curRow].cells[7].firstElementChild.remove();
+            table.rows[curRow].cells[8].contentEditable = true;
+            var original1 = document.getElementById("PhysID");
+            var physDrop = original1.cloneNode(true);
+            physDrop.setAttribute('id', 'physDrop');
+            if (table.rows[curRow].cells[9].innerText === "null"){
+                physDrop.value = "NULL";
+            } else {    physDrop.value = Number(table.rows[curRow].cells[9].innerText);
+            };
+            table.rows[curRow].cells[9].appendChild(physDrop);
+            table.rows[curRow].cells[9].firstElementChild.remove();
+            if (count === 1) {
+                alert('Click "Update" to save changes made or "Edit" to undo/restore data.');
+            };
+            event.preventDefault();
+        })
         var cell14 = document.createElement("td");
         var Update = document.createElement("button");
         Update.setAttribute("id", "Update");
         Update.setAttribute('value', "Update");
         Update.innerHTML = "Update";
+        Update.style.display = "none";
         cell14.appendChild(Update);
         row.appendChild(cell14);
+        Update.addEventListener('click', function (event){
+            var req = new XMLHttpRequest();
+            var curRow = this.parentNode.parentNode.rowIndex;
+            var updatePat = {};
+            var table = document.getElementById("PatientTable");
+            updatePat.submit = "Update";
+            updatePat.fname = table.rows[curRow].cells[0].innerHTML;
+            updatePat.lname = table.rows[curRow].cells[1].innerHTML;
+            updatePat.dob = table.rows[curRow].cells[2].lastElementChild.value;
+            updatePat.address = table.rows[curRow].cells[3].innerHTML;
+            updatePat.city = table.rows[curRow].cells[4].innerHTML;
+            updatePat.state = table.rows[curRow].cells[5].innerHTML;
+            updatePat.zip = table.rows[curRow].cells[6].innerHTML;
+            updatePat.gender = table.rows[curRow].cells[7].lastElementChild.value;
+            updatePat.diagnosis = table.rows[curRow].cells[8].innerHTML;
+            updatePat.physID = table.rows[curRow].cells[9].lastElementChild.value;
+            updatePat.payID = table.rows[curRow].cells[10].lastElementChild.value;
+            updatePat.patID = table.rows[curRow].cells[12].lastElementChild.value;
+            req.addEventListener("load", function(){
+                initPatTable();
+            });
+            req.open("POST", "http://flip1.engr.oregonstate.edu:9919/patients", true);
+            req.setRequestHeader('Content-type', "application/json");
+            req.send(JSON.stringify(updatePat));
+            alert("Patient has been updated.");
+            event.preventDefault();
+        })
         table.appendChild(row);
     }
     return table;
