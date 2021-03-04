@@ -129,7 +129,7 @@ function deleteRow(idVal) {
     var req = new XMLHttpRequest();
     var id = idVal;
 
-    req.open('GET', 'http://flip1.engr.oregonstate.edu:9919/hospitals?id=' + id, true);
+    req.open('DELETE', 'http://flip1.engr.oregonstate.edu:9919/hospitals/delete?id=' + id, true);
       
     // Event listener that fires when entire page is loaded, and triggers function.
     req.addEventListener('load',function(){
@@ -154,11 +154,12 @@ function updateRow(idVal) {
     var rowIndex = findRow(idVal)
 
     // Variables for each entry in row that needs to be upated after editing.
-    var lastName = table.rows[rowIndex].cells[1].innerHTML;
-    var firstName = table.rows[rowIndex].cells[2].innerHTML;
-    var specialty = table.rows[rowIndex].cells[3].innerHTML;
+    var hospitalName = table.rows[rowIndex].cells[1].innerHTML;
+    var city = table.rows[rowIndex].cells[2].innerHTML;
+    var state = table.rows[rowIndex].cells[3].innerHTML;
+    var zip = table.rows[rowIndex].cells[4].innerHTML;
 
-    req.open('POST', 'http://flip1.engr.oregonstate.edu:9919/update?id=' + id + "&lastName=" + lastName + "&firstName=" + firstName + "&specialty=" + specialty, true);
+    req.open('POST', 'http://flip1.engr.oregonstate.edu:9919/hospitals/update?id=' + id + "&hospitalName=" + hospitalName + "&city=" + city + "&state=" + state, + "&zip=" + zip, true);
 
     // Event listener that fires when entire page is loaded, and triggers function.
     req.addEventListener('load',function(){
@@ -170,14 +171,15 @@ function updateRow(idVal) {
         table.rows[rowIndex].cells[1].contentEditable = false;
         table.rows[rowIndex].cells[2].contentEditable = false;
         table.rows[rowIndex].cells[3].contentEditable = false;
+        table.rows[rowIndex].cells[4].contentEditable = false;
 
-        getPhysicians();
+        getHospitals();
 
         } else {
         console.log("Error in network request: " + req.statusText);
+      }});
+      req.send();
     };
-    req.send();
-    })};
 
 // Function to make table cells editable.
 function editRow(idVal) {
@@ -187,6 +189,7 @@ function editRow(idVal) {
     table.rows[rowIndex].cells[1].contentEditable = true;
     table.rows[rowIndex].cells[2].contentEditable = true;
     table.rows[rowIndex].cells[3].contentEditable = true;
+    table.rows[rowIndex].cells[4].contentEditable = false;
     };
 
 // Function to find row with matching id value and return row index.
@@ -201,3 +204,5 @@ function findRow(idVal) {
         var rowIndex = i;
         return rowIndex;
 }}};
+
+getHospitals();

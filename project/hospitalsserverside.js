@@ -54,5 +54,47 @@ module.exports = function(){
         });
     });
 
+    // DELETE route to delete a table row based on id.
+    router.delete('/delete', function(req, res, next){
+      var context = {};
+      var mysql = req.app.get('mysql');
+
+      mysql.pool.query("DELETE FROM Hospitals WHERE hospitalID=?", [req.query.id], function(err, result){
+        if(err){
+          next(err);
+          return;
+        }
+        context.results = "Deleted" + result.changedRows;
+        res.render('hospitals', context);
+      });
+    });
+
+    // POST route to update row based on id and to keep current values if no new ones are provided.
+    router.post('/update', function(req,res,next){
+      var context = {};
+      var mysql = req.app.get('mysql');
+
+      mysql.pool.query("SELECT * FROM Hospitals WHERE hospitalID=?", [req.query.id], function(err, result){
+        if(err){
+          next(err);
+          return;
+        }
+        if(result.length == 1){
+          var curVals = result[0];
+          
+          mysql.pool.query("UPDATE Hospitals SET hospitalName=?, city=?, state=?, zip=? WHERE hospitalID=?",
+            [req.query.hospitalName || curVals.hospitalName, req.query.city || curVals.city, req.query.state || curVals.state, req.query.zip || curVals.zip, req.query.id],
+            function(err, result){
+            if(err){
+              next(err);
+              return;
+            }
+            context.results = "Updated " + result.changedRows + " rows.";
+            res.send("Entry has been updated");
+          });
+        }
+      });
+    });
+
     return router;
 }();

@@ -77,6 +77,7 @@
                     {{#each search}}
                     <tr id="searchHospitalPayorTable" style="border:solid black">
                         <!--Keep id values hidden-->
+                        <td class="searchEntryId" id="searchEntryId" hidden style="border:solid black">{{this.rowID}}</td>
                         <td id="searchHospitalID" style="border:solid black">{{this.hospitalID}}</td>
                         <td id="searchPayorID" style="border:solid black">{{this.payorID}}</td>
                     </tr>
@@ -97,8 +98,12 @@
                     {{#each results}}
                     <tr id="hospitalPayorTable" style="border:solid black">
                         <!--Keep id values hidden-->
+                        <td class="entryId" id="entryId" hidden style="border:solid black">{{this.rowID}}</td>
                         <td id="hospitalID" style="border:solid black">{{this.hospitalID}}</td>
                         <td id="payorID" style="border:solid black">{{this.payorID}}</td>
+                        <td><button class="deleteRow" type="button" value={{this.rowID}}>Delete</button></td>
+                        <td><button class="editRow" type="button" value={{this.rowID}}>Edit</button></td>
+                        <td><button class="updateRow" type="button" value={{this.rowID}}>Update</button></td>
                     </tr>
                     {{/each}}
                 </tbody>
