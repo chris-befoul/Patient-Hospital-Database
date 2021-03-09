@@ -1,11 +1,12 @@
-initPayTable()
+initPayTable()              // Calls function to initialize table at load of payors page.
 document.addEventListener('DOMContentLoaded', searchPayTable);
 document.addEventListener('DOMContentLoaded', clearPaySearch);
 
-
+// Function builds table to payors page via DOM calls using data gathered from Payors table in database
 function buildPayTable(data){
     var table = document.createElement("table");
     table.setAttribute("id", "PayorTable");
+    // Constructs the header for the table to be displayed on payors page.
     var headrow = document.createElement("tr");
     var headcell1 = document.createElement("th");
     headcell1.append(document.createTextNode("Company Name"));
@@ -26,6 +27,7 @@ function buildPayTable(data){
     table.appendChild(headrow);
 
     var tableData = data.results;
+    // Loops through data gathered to fill in appropriate cells with said data.
     for (var i=0; i<tableData.length; i++) {
         var row = document.createElement("tr");
         var cell1 = document.createElement("td");
@@ -45,6 +47,7 @@ function buildPayTable(data){
         cell4.style.border = "solid black";
         row.appendChild(cell4);
 
+        // Constructs DELETE, EDIT, and UPDATE buttons for table.
         var cell11 = document.createElement("td");
         var Delete = document.createElement("button");
         Delete.setAttribute("id", "Delete");
@@ -52,6 +55,7 @@ function buildPayTable(data){
         Delete.innerHTML = "Delete";
         cell11.appendChild(Delete);
         row.appendChild(cell11);
+        // Event listener performs POST call using payorID for given entry as request.
         Delete.addEventListener("click", function (event){
             var payID = this.parentNode.nextSibling.firstChild
             payID = payID.value;
@@ -60,7 +64,7 @@ function buildPayTable(data){
             curID.Delete = 'Delete';
             var req = new XMLHttpRequest();
             req.addEventListener('load',function(){
-                initPayTable();
+                initPayTable();                                                // Resets table after performing delete
                 if(req.status >= 200 && req.status < 400){
                     console.log(req.responseText);
                 } else {
@@ -69,12 +73,12 @@ function buildPayTable(data){
             req.open('POST', "http://flip1.engr.oregonstate.edu:9919/payors",true);
             req.setRequestHeader('Content-type', "application/json");
             req.send(JSON.stringify(curID));
-            alert("Payor has been deleted from Hardison-Kim Hospital database.");
+            alert("Payor has been deleted from Hardison-Kim Hospital database.");  // Notifies entry has been deleted
             event.preventDefault();
         })
         var cell12 = document.createElement("td");
         var hid = document.createElement("input");
-        hid.setAttribute("type", "hidden");
+        hid.setAttribute("type", "hidden");             // Hides payorID from user
         hid.setAttribute('name','id');
         hid.setAttribute("value", tableData[i].payorID);
         cell12.appendChild(hid);
@@ -93,7 +97,7 @@ function buildPayTable(data){
             if (count > 1){
                 initPayTable();
             };
-            this.parentNode.parentNode.lastElementChild.lastElementChild.style.display = "block";
+            this.parentNode.parentNode.lastElementChild.lastElementChild.style.display = "block";  // UPDATE button becomes visible
             var table = document.getElementById("PayorTable");
             table.rows[curRow].cells[0].contentEditable = true;
             table.rows[curRow].cells[1].contentEditable = true;
@@ -112,9 +116,10 @@ function buildPayTable(data){
         Update.style.display = "none";
         cell14.appendChild(Update);
         row.appendChild(cell14);
+        // POST call to send changes made to payor's information in table.
         Update.addEventListener('click', function (event){
             var req = new XMLHttpRequest();
-            var curRow = this.parentNode.parentNode.rowIndex;
+            var curRow = this.parentNode.parentNode.rowIndex;       // Index of current row being updated
             var updatePay = {};
             var table = document.getElementById("PayorTable");
             updatePay.submit = "Update";
@@ -137,6 +142,7 @@ function buildPayTable(data){
     return table;
 }
 
+// Function for filtering payors to desired selection
 function searchPayTable() {
     document.getElementById('searchPay').addEventListener("click", function (event) {
         var form = {
@@ -165,6 +171,7 @@ function searchPayTable() {
     });
 }
 
+// Function used to clear filter/search results to reinitialize table
 function clearPaySearch() {
     document.getElementById('clearPay').addEventListener("click", function (event) {
         initPayTable();
@@ -172,6 +179,7 @@ function clearPaySearch() {
     });
 }
 
+// Function to call for data to populate table initially
 function initPayTable() {
     var req = new XMLHttpRequest();
     const request = {submit: "all"};

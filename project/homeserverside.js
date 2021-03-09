@@ -22,8 +22,10 @@ app.get('/', function(req, res, next){
   res.render('home');
 });
 
+// Call renders "patients" page via GET.
 app.get('/patients', function(req, res, next) {
     var context = {};
+    // Query gathers names of all available companies for Patients form for adding new patient.
     mysql.pool.query("SELECT company FROM Payors", function (err, result) {
         if (err) {
             next(err);
@@ -31,6 +33,7 @@ app.get('/patients', function(req, res, next) {
         }
         context.payors = result;
     });
+    // Query gathers all available physicianIDs for Patients form for adding new patient.
     mysql.pool.query("SELECT physicianID FROM Physicians", function (err, result) {
         if (err) {
             next(err);
@@ -41,8 +44,10 @@ app.get('/patients', function(req, res, next) {
     });
 });
 
+// Called for POST responses to "patients" page.
 app.post('/patients',function(req,res,next) {
   var context = {};
+  // Conditional checks to see if call is to add new patient.
   if (req.body['AddPat']) {
     var a = req.body.AddFirst
     var b = req.body.AddLast
@@ -54,6 +59,7 @@ app.post('/patients',function(req,res,next) {
     var h = req.body.AddGender
     var i = req.body.AddDiagnosis
     var j = req.body.AddPhysID
+    // INSERT query to Patients table with data from form using SELECT query on company name to gather payorID.
     mysql.pool.query("INSERT INTO Patients (`firstName`, `lastName`, `dob`, `address`, `city`, `state`, `zip`, `gender`, `primDiagnosis`, `physicianID`, `payorID`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, (SELECT payorId FROM Payors WHERE company = ?))", [a, b, c, d, e, f, g, h, i, j, req.body.PayName], function (err, result) {
       if (err) {
         next(err);
@@ -64,6 +70,7 @@ app.post('/patients',function(req,res,next) {
     })
   }
 
+  // Conditional used to gather all info from Patients table.
   if (req.body.submit === 'all'){
     mysql.pool.query('SELECT * FROM Patients', function (err, rows, fields) {
       if (err) {
@@ -72,6 +79,7 @@ app.post('/patients',function(req,res,next) {
       }
       context.results = rows;
       var num = context.results.length;
+      // For loop utilized to convert all dates to valid readable format for table on patients page.
       for (var i = 0; i < num; i++) {
         var d = context.results[i].dob
         var month = d.getMonth() + 1
@@ -86,22 +94,11 @@ app.post('/patients',function(req,res,next) {
         d = [year, month, day].join('-');
         context.results[i].dob = d
       }
-      /*
-      var num = context.results.length
-      for (var i = 0; i < num; i++) {
-        var d = context.results[i].dob
-        var month = d.getMonth() + 1
-        var day = d.getDate()
-        var year = d.getFullYear()
-        d = [month, day, year].join('-');
-        context.results[i].dob = d
-      }
-
-       */
       res.send(context)
     })
   }
 
+  // Conditional checks to see if call is used for filter function on "patients" page.
   if (req.body.submit === 'searchPat'){
     mysql.pool.query('SELECT * FROM Patients WHERE firstName = ? AND lastName = ? AND dob = ?', [req.body.firstName, req.body.lastName, req.body.searchDOB],  function (err, rows, fields) {
       if (err) {
@@ -109,6 +106,7 @@ app.post('/patients',function(req,res,next) {
         return;
       }
       context.results = rows;
+      // Formats date to correct format for "patients" page.
       var num = context.results.length
       for (var i = 0; i < num; i++) {
         var d = context.results[i].dob
@@ -122,6 +120,7 @@ app.post('/patients',function(req,res,next) {
     })
   }
 
+  // Conditonal checks if call is performed to Update patient entry.
   if (req.body.submit === 'Update') {
     var a = req.body.fname
     var b = req.body.lname
@@ -143,6 +142,7 @@ app.post('/patients',function(req,res,next) {
       var k = null
     };
     var l = Number(req.body.patID);
+    // Finds patient that matches patientID of selected patient to update.
     mysql.pool.query("SELECT * FROM Patients WHERE patientID=?", [l], function (err, result) {
       if (err) {
         next(err);
@@ -150,6 +150,7 @@ app.post('/patients',function(req,res,next) {
       }
       if (result.length == 1) {
         var curVals = result[0];
+        // Updates patient entry to reflect edits made to table on "patients" page.
         mysql.pool.query("UPDATE Patients SET firstName=?, lastName=?, dob=?, address=?, city=?, state=?, zip=?, gender=?, primDiagnosis=?, physicianID=?, payorID=? WHERE patientID=?",
             [a || curVals.firstName, b || curVals.lastName, c || curVals.dob, d || curVals.address, e || curVals.city, f || curVals.state, Number(g) || curVals.zip, h || curVals.gender, i || curVals.primDiagnosis, j, k, l],
             function (err, result) {
@@ -163,6 +164,7 @@ app.post('/patients',function(req,res,next) {
     })
   }
 
+  // Conditional used to gather all available payorIDs from Payors table.
   if (req.body.submit === 'payID'){
     mysql.pool.query('SELECT payorID FROM Payors', function (err, rows, fields) {
       if (err) {
@@ -174,6 +176,7 @@ app.post('/patients',function(req,res,next) {
     })
   }
 
+  // Conditional checks if call was performed to Delete entry from Patients table.
   if (req.body.Delete === 'Delete'){
     mysql.pool.query("DELETE FROM Patients WHERE patientID = ?", [req.body.id], function (err, result){
       if(err){
@@ -185,12 +188,15 @@ app.post('/patients',function(req,res,next) {
   }
 });
 
+// Call renders "payors" page via GET.
 app.get('/payors', function(req, res, next){
   res.render('payors');
 });
 
+// Calls "payors" page for response via POST.
 app.post('/payors',function(req,res,next) {
   var context = {};
+  // Checks if call was performed to add new payor.
   if (req.body['AddPay']) {
     var a = req.body.company
     var b = req.body.PayCity
@@ -206,6 +212,7 @@ app.post('/payors',function(req,res,next) {
     })
   }
 
+  // Conditional set in place to gather all data from Payors table.
   if (req.body.submit === 'all'){
     mysql.pool.query('SELECT * FROM Payors', function (err, rows, fields) {
       if (err) {
@@ -217,6 +224,7 @@ app.post('/payors',function(req,res,next) {
     })
   }
 
+  // Conditional used to detect if it is a filter/search call.
   if (req.body.submit === 'searchPay'){
     mysql.pool.query('SELECT * FROM Payors WHERE company = ?', [req.body.company],  function (err, rows, fields) {
       if (err) {
@@ -228,6 +236,7 @@ app.post('/payors',function(req,res,next) {
     })
   }
 
+  // Conditional checks if call was done to perform DELETE to a Payors entry.
   if (req.body.Delete === 'Delete'){
     mysql.pool.query("DELETE FROM Payors WHERE payorID = ?", [req.body.id], function (err, result){
       if(err){
@@ -238,12 +247,14 @@ app.post('/payors',function(req,res,next) {
     });
   }
 
+  // Conditional checks if call was done to perform UPDATE to a Payors entry.
   if (req.body.submit === 'Update') {
     var a = req.body.company
     var b = req.body.city
     var c = req.body.state
     var d = Number(req.body.zip)
     var e = Number(req.body.payID);
+    // Query finds entry that matches payorID of entry from table selected to update.
     mysql.pool.query("SELECT * FROM Payors WHERE payorID=?", [e], function (err, result) {
       if (err) {
         next(err);
