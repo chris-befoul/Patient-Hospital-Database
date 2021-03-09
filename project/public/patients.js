@@ -1,11 +1,12 @@
-initPatTable()
+initPatTable()  // Calls function to initialize table at load of patients page.
 document.addEventListener('DOMContentLoaded', searchPatTable);
 document.addEventListener('DOMContentLoaded', clearPatSearch);
 
-
+// Function builds table to patients page via DOM calls using data gathered from Patients table in database
 function buildPatTable(data){
     var table = document.createElement("table");
     table.setAttribute("id", "PatientTable");
+    // Constructs the header for the table to be displayed on patients page.
     var headrow = document.createElement("tr");
     var headcell1 = document.createElement("th");
     headcell1.append(document.createTextNode("First Name"));
@@ -54,6 +55,7 @@ function buildPatTable(data){
     table.appendChild(headrow);
 
     var tableData = data.results;
+    // Loops through data gathered to fill in appropriate cells with said data.
     for (var i=0; i<tableData.length; i++) {
         var row = document.createElement("tr");
         var cell1 = document.createElement("td");
@@ -75,7 +77,7 @@ function buildPatTable(data){
         var day = d.getDate() + 1
         var year = d.getFullYear()
         d = [month, day, year].join('-');
-        tableData[i].dob = d
+        tableData[i].dob = d                                        // Formats date to MM-DD-YYYY
         var textDate = document.createTextNode(tableData[i].dob)
         var dateBox = document.createElement("div");
         dateBox.appendChild(textDate);
@@ -122,8 +124,7 @@ function buildPatTable(data){
         cell10.style.border = "solid black";
         row.appendChild(cell10);
 
-
-
+        // Constructs DELETE, EDIT, and UPDATE buttons for table.
         var cell11 = document.createElement("td");
         var Delete = document.createElement("button");
         Delete.setAttribute("id", "Delete");
@@ -131,6 +132,7 @@ function buildPatTable(data){
         Delete.innerHTML = "Delete";
         cell11.appendChild(Delete);
         row.appendChild(cell11);
+        // Event listener performs POST call using patientID for given entry as request.
         Delete.addEventListener("click", function (event){
             var patID = this.parentNode.nextSibling.firstChild
             patID = patID.value;
@@ -147,13 +149,13 @@ function buildPatTable(data){
             req.open('POST', "http://flip1.engr.oregonstate.edu:9919/patients",true);
             req.setRequestHeader('Content-type', "application/json");
             req.send(JSON.stringify(curID));
-            initPatTable();
-            alert("Patient has been deleted from Hardison-Kim Hospital database.");
+            initPatTable();                                                 // Resets table after performing delete
+            alert("Patient has been deleted from Hardison-Kim Hospital database.");  // Notifies entry has been deleted
             event.preventDefault();
         })
         var cell12 = document.createElement("td");
         var hid = document.createElement("input");
-        hid.setAttribute("type", "hidden");
+        hid.setAttribute("type", "hidden");                // Hides patientID from user
         hid.setAttribute('name','id');
         hid.setAttribute('id','id');
         hid.setAttribute("value", tableData[i].patientID);
@@ -166,19 +168,21 @@ function buildPatTable(data){
         Edit.innerHTML = "Edit";
         cell13.appendChild(Edit);
         row.appendChild(cell13);
+
         var count = 0;
         Edit.addEventListener('click', function (event){
             curRow = this.parentNode.parentNode.rowIndex
-            this.parentNode.parentNode.lastElementChild.lastElementChild.style.display = "block";
+            this.parentNode.parentNode.lastElementChild.lastElementChild.style.display = "block";  // Allows UPDATE button to be seen by user
             var table = document.getElementById("PatientTable");
             var form = {submit: "payID"};
             var req = new XMLHttpRequest();
             req.addEventListener("load", function(){
                 var response = req.responseText;
                 response = JSON.parse(response);
-                var select = document.createElement("select");
+                var select = document.createElement("select");          // DOM call to create drop down menu
                 select.id = "payID"
 
+                // Loops through gathered payorIDs to fill drop down menu
                 for (const val of response.results) {
                    var option = document.createElement("option");
                    option.value = val.payorID;
@@ -189,20 +193,23 @@ function buildPatTable(data){
                 option.value = "NULL";
                 option.text = "None";
                 select.appendChild(option);
+                // Conditional sets initial value in drop down menu
                 if (table.rows[curRow].cells[10].innerText === "null"){
                     select.value = "NULL";
                 } else {    select.value = Number(table.rows[curRow].cells[10].innerText);
                 }
                 table.rows[curRow].cells[10].appendChild(select);
-                table.rows[curRow].cells[10].firstElementChild.remove();
+                table.rows[curRow].cells[10].firstElementChild.remove();        // Ensures only drop down menu is in cell
             });
             req.open("POST", "http://flip1.engr.oregonstate.edu:9919/patients", true);
             req.setRequestHeader('Content-type', "application/json");
             req.send(JSON.stringify(form));
             count ++;
+            // Conditional checks to see how many times EDIT has been clicked to reset table in clicked more than once
             if (count > 1){
                 initPatTable();
             };
+            // Allows cells' data to be edited
             table.rows[curRow].cells[0].contentEditable = true;
             table.rows[curRow].cells[1].contentEditable = true;
             table.rows[curRow].cells[2].contentEditable = true;
@@ -216,19 +223,21 @@ function buildPatTable(data){
             var genderDrop = originalGender.cloneNode(true);
             genderDrop.setAttribute('id', 'genderDrop');
             genderDrop.setAttribute('value', table.rows[curRow].cells[7].innerHTML);
-            genderDrop.value = table.rows[curRow].cells[7].innerText;
-            table.rows[curRow].cells[7].appendChild(genderDrop);
-            table.rows[curRow].cells[7].firstElementChild.remove();
+            genderDrop.value = table.rows[curRow].cells[7].innerText;               // Initializes drop down menu value
+            table.rows[curRow].cells[7].appendChild(genderDrop);               // Adds gender drop menu to table
+            table.rows[curRow].cells[7].firstElementChild.remove();           // Ensures drop down menu is only in cell
             table.rows[curRow].cells[8].contentEditable = true;
             var original1 = document.getElementById("PhysID");
             var physDrop = original1.cloneNode(true);
             physDrop.setAttribute('id', 'physDrop');
+            // Conditional sets value selected in drop down menu
             if (table.rows[curRow].cells[9].innerText === "null"){
                 physDrop.value = "NULL";
             } else {    physDrop.value = Number(table.rows[curRow].cells[9].innerText);
             };
-            table.rows[curRow].cells[9].appendChild(physDrop);
-            table.rows[curRow].cells[9].firstElementChild.remove();
+            table.rows[curRow].cells[9].appendChild(physDrop);              // Adds physDrop menu to table
+            table.rows[curRow].cells[9].firstElementChild.remove();         // Ensures drop menu is only in cell
+            // Conditonal checks Edit count to alert user of functionality of buttons.
             if (count === 1) {
                 alert('Click "Update" to save changes made or "Edit" to undo/restore data.');
             };
@@ -239,12 +248,13 @@ function buildPatTable(data){
         Update.setAttribute("id", "Update");
         Update.setAttribute('value', "Update");
         Update.innerHTML = "Update";
-        Update.style.display = "none";
+        Update.style.display = "none";                                      // Hides Update button from user's
         cell14.appendChild(Update);
         row.appendChild(cell14);
+        // POST call to send changes made to patient's information in table.
         Update.addEventListener('click', function (event){
             var req = new XMLHttpRequest();
-            var curRow = this.parentNode.parentNode.rowIndex;
+            var curRow = this.parentNode.parentNode.rowIndex;               // Index of current row being updated
             var updatePat = {};
             var table = document.getElementById("PatientTable");
             updatePat.submit = "Update";
@@ -274,6 +284,7 @@ function buildPatTable(data){
     return table;
 }
 
+// Function for filtering patients to desired selection
 function searchPatTable() {
     document.getElementById('searchPat').addEventListener("click", function (event) {
         var form = {
@@ -304,6 +315,7 @@ function searchPatTable() {
     });
 }
 
+// Function used to clear filter/search results to reinitialize table
 function clearPatSearch() {
     document.getElementById('clear').addEventListener("click", function (event) {
         initPatTable();
@@ -311,6 +323,7 @@ function clearPatSearch() {
     });
 }
 
+// Function to call for data to populate table initially
 function initPatTable() {
     var req = new XMLHttpRequest();
     const request = {submit: "all"};
